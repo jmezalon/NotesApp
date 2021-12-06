@@ -78,6 +78,7 @@ button:hover {
   object-fit: cover;
 }
 
+
 /* LOGIN PAGE STYLES */
 
 .login{
@@ -86,6 +87,24 @@ button:hover {
   align-items: center;
   justify-content: center;
 }
+
+.wrapper {
+  width: 60%;
+  height: 75%;
+  box-shadow: 10px 5px 20px -10px rgba(66,66,66,1);
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.left-side,.right-side{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.
 /* HOME PAGE STYLES */
 
 /* SIDEBAR STYLES */
