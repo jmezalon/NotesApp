@@ -9,13 +9,24 @@ import Sidebar from './Components/Sidebar';
 function App() {
   const [notes, setNotes] = useState([])
   const [activeNote, setActiveNote] = useState(false)
+  const [formData, setFormData] = useState({
+    title: "Untitled Note",
+    content: ''
+  });
+  // const [content, setContent] = useState("");
+
+  const handleChange = (e) => {
+    debugger;
+    setFormData({...formData,
+      [e.target.name]: e.target.value})
+  }
 
   const onAddNote = () => {
     const newNote = {
       id: uuid(),
       title: "Untitled Note",
-      content: "",
-      lastModified: Date.now(),
+      content: " ",
+      last_modified: Date.now(),
     }
     setNotes([newNote, ...notes])
   }
@@ -50,7 +61,7 @@ function App() {
           activeNote={activeNote}
           setActiveNote={setActiveNote}
         />
-        <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+        <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} handleChange={handleChange} formData={formData}/>
       </div>
     </>
   );
