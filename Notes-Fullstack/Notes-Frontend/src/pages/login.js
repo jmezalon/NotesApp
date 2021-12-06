@@ -1,6 +1,14 @@
+import {useState} from "react"
 import Google from "../img/google.png"
 import Github from "../img/github.png"
-const Login = () => {
+const Login = ( {loginFormData, handleLoginChange, onLoginSubmit}) => {
+  const [newUser, setnewUser] = useState(true);
+  const handleLoginSubmit = e => {
+    e.preventDefault()
+    fetch('http://localhost:9292/users')
+    .then(r => r.json())
+    .then(user => onLoginSubmit(user))
+  }
   return (
     <div className="login">
       <h1 className="loginTitle">Choose a Login Method</h1>
@@ -20,15 +28,42 @@ const Login = () => {
           <div className="centerText">OR</div>
         </div>
         <div className="right-side">
-          <h2 className="form-header">New User</h2>
-          <input type="text" placeholder="Username" />
-          <input type="text" placeholder="Password" />
-          <input type="text" placeholder="Email" />
-          <button className="submit">Sign Up</button>
-          <h2 className="form-header">Already a user</h2>
-          <input type="text" placeholder="Username" />
-          <input type="text" placeholder="Password" />
-          <button className="submit">Login</button>
+          {newUser ? (
+            <>
+              <h2 className="form-header">New User</h2>
+              <form>
+                <input type="text" placeholder="Username" />
+                <input type="text" placeholder="Password" />
+                <input type="text" placeholder="Email" />
+                <button className="submit">Sign Up</button>
+              </form>
+              <p>Already have an account?</p>
+              <button onClick={() => setnewUser(false)}>Sign In</button>
+            </>
+          ) : (
+            <>
+              <h2 className="form-header">Already a user</h2>
+              <form onSubmit={handleLoginSubmit}>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  value={loginFormData.username}
+                  onChange={handleLoginChange}
+                />
+                <input
+                  type="text"
+                  placeholder="Password"
+                  name="password"
+                  value={loginFormData.password}
+                  onChange={handleLoginChange}
+                />
+                <button className="submit">Login</button>
+              </form>
+              <p>Don't have an account?</p>
+              <button onClick={() => setnewUser(true)}>Create account</button>
+            </>
+          )}
         </div>
       </div>
     </div>
