@@ -1,7 +1,7 @@
 
 function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) 
 {
-  const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified)
+  const sortedNotes = notes.sort((a, b) => b.last_modified - a.last_modified)
 
   return (
     <div className="app-sidebar">
@@ -19,10 +19,10 @@ function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote })
               <strong>{note.title}</strong>
               <button onClick={() => onDeleteNote(note.id)}>Delete</button>
             </div>
-            <p>{note.body && note.body.substr(0, 100) + "..."}</p>
+            <p>{note.content && note.content.substr(0, 40) + "..."}</p>
             <small classname="note-meta">
               Last modified{" "}
-              {new Date(note.lastModified).toLocaleDateString("en-us", {
+              {new Date(note.last_modified).toLocaleDateString("en-us", {
                 hour: "2-digit",
                 minute: "2-digit",
               })}

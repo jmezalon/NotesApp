@@ -1,12 +1,14 @@
-import { CancelTwoTone, YoutubeSearchedFor } from "@mui/icons-material";
 import ReactMarkdown from "react-markdown";
+import {useState} from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
-function Main({ activeNote, onUpdateNote }) {
+function Main({ activeNote, onUpdateNote, formData, handleChange }) {
   const onEditField = (key, value) => {
     onUpdateNote({
       ...activeNote,
       [key]: value,
-      lastModified: Date.now(),
+      last_modified: Date.now(),
       })
   };
 
@@ -14,7 +16,7 @@ function Main({ activeNote, onUpdateNote }) {
 
   return (
     <div className="app-main">
-      <div className="app-main-note-edit"> 
+      <div className="app-main-note-edit">
         <input
           type="text"
           id="title"
@@ -22,16 +24,27 @@ function Main({ activeNote, onUpdateNote }) {
           onChange={(e) => onEditField("title", e.target.value)}
           autoFocus
         />
-        <textarea
-          id="body"
+        {/* <textarea
+          id="content"
           placeholder="Write you notes here..."
-          value={activeNote.body}
-          onChange={(e) => onEditField("body", e.target.value)}
+          value={activeNote.content}
+          onChange={(e) => onEditField("content", e.target.value)}
+        /> */}
+        <ReactQuill
+          name="content"
+          placeholder="Write you notes here..."
+          theme="snow"
+          value={activeNote.content}
+          onChange={(e) => onEditField("content", e.target.value)}
+          // value={formData.content}
+          // onChange={handleChange}
         />
       </div>
       <div className="app-main-note-preview">
         <h1 className="preview-title">{activeNote.title}</h1>
-        <ReactMarkdown className="markdown-preview">{activeNote.body}</ReactMarkdown>
+        <ReactMarkdown className="markdown-preview">
+          {activeNote.content}
+        </ReactMarkdown>
       </div>
     </div>
   );
