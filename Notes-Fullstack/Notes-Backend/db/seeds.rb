@@ -7,8 +7,8 @@ Note.destroy_all
 
 
 puts "Creating Users"
-ben = User.create(first_name: "Ben", last_name: "Jackson")
-max = User.create(first_name: "Max", last_name: "Mezalon")
+ben = User.create(name: "Ben", email: "j@gmail.ocm", password: '12345')
+max = User.create(name: "Max", email: "m@gmail.com", password: '123456')
 
 
 puts "Creating Notebooks"
