@@ -1,69 +1,37 @@
-import {useState} from 'react';
-import uuid from "react-uuid";
+import {useState} from "react"
 import './App.css';
-import Main from './Components/Main';
 import Navbar from './Components/Navbar';
-import Sidebar from './Components/Sidebar';
-
+import Home from "./pages/Home";
+import Login from './pages/Login';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
-  const [notes, setNotes] = useState([])
-  const [activeNote, setActiveNote] = useState(false)
-  const [formData, setFormData] = useState({
-    title: "Untitled Note",
-    content: ''
-  });
-  // const [content, setContent] = useState("");
+  const [user, setUser] = useState(false);
+  const [loginFormData, setLoginFormData] = useState({
+    username: "",
+    password: ""
+  })
 
-  const handleChange = (e) => {
-    debugger;
-    setFormData({...formData,
-      [e.target.name]: e.target.value})
-  }
-
-  const onAddNote = () => {
-    const newNote = {
-      id: uuid(),
-      title: "Untitled Note",
-      content: " ",
-      last_modified: Date.now(),
-    }
-    setNotes([newNote, ...notes])
-  }
-
-  const onDeleteNote = (idToDelete) => {
-    setNotes(notes.filter((note) => note.id !== idToDelete));
-  }
-
-  const onUpdateNote = (updatedNote) => {
-    const updatedNotesArray = notes.map((note) => {
-      if(note.id === activeNote) {
-        return updatedNote;
-      }
-      return note;
+  const handleLoginChange = (e) => {
+    setLoginFormData({
+      ...loginFormData, [e.target.name] : e.target.value
     })
-
-    setNotes(updatedNotesArray)
   }
 
-  const getActiveNote = () => {
-    return notes.find((note) => note.id === activeNote);
+  const onLoginSubmit = (user) => {
+    setUser(user)
+    console.log(user)
   }
-
   return (
-    <>
-      <Navbar />
-      <div className="App">
-        <Sidebar
-          notes={notes}
-          onAddNote={onAddNote}
-          onDeleteNote={onDeleteNote}
-          activeNote={activeNote}
-          setActiveNote={setActiveNote}
-        />
-        <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} handleChange={handleChange} formData={formData}/>
+    <BrowserRouter>
+      <div>
+        <Navbar user={user}/>
+        <Routes>
+          <Route path="/" element={user ? <Navigate to ="/home"/> : <Login onLoginSubmit={onLoginSubmit} loginFormData={loginFormData} handleLoginChange={handleLoginChange} />} />
+          <Route path="/:id" element={user ? <Home/> : <Navigate to="/"/>} />
+        </Routes>
       </div>
-    </>
+    </BrowserRouter>
   );
 }
 

@@ -35,7 +35,7 @@ function Main({ activeNote, onUpdateNote, formData, handleChange }) {
           placeholder="Write you notes here..."
           theme="snow"
           value={activeNote.content}
-          onChange={(e) => onEditField("content", e.target.value)}
+          onChange={(e) => onEditField("content", e)}
           // value={formData.content}
           // onChange={handleChange}
         />

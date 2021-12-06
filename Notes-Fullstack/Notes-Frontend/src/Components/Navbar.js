@@ -1,17 +1,20 @@
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ( {user} ) => {
   return (
     <div className="navbar">
       <span className="logo">Notes App</span>
-      <ul className="list">
-        <li className="listItem">
-          <img src="" alt="" className="avatar" />
-        </li>
-        <li className="listItem, username">
-          Username
-        </li>
-        <li className="listItem">Logout</li>
-      </ul>
+      {user ? (
+        <ul className="list">
+          <li className="listItem">
+            <img src="" alt="" className="avatar" />
+          </li>
+          <li className="listItem, username">Username</li>
+          <li className="listItem">Logout</li>
+        </ul>
+      ) : (
+        <Link className="link username" to="/">Login</Link>
+      )}
     </div>
   );
 };
