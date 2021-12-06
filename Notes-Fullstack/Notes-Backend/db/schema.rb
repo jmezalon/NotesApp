@@ -22,13 +22,12 @@ ActiveRecord::Schema.define(version: 2021_12_05_232620) do
     t.string "title"
     t.text "content"
     t.boolean "favorite"
-    t.string 'last_modified'
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.email "email"
-    t.string 'password'
+    t.string "email"
+    t.string "password"
   end
 
 end
