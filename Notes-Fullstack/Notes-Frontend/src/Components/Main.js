@@ -1,4 +1,3 @@
-import { CancelTwoTone, YoutubeSearchedFor } from "@mui/icons-material";
 import ReactMarkdown from "react-markdown";
 
 function Main({ activeNote, onUpdateNote }) {
@@ -23,15 +22,15 @@ function Main({ activeNote, onUpdateNote }) {
           autoFocus
         />
         <textarea
-          id="body"
+          id="content"
           placeholder="Write you notes here..."
-          value={activeNote.body}
-          onChange={(e) => onEditField("body", e.target.value)}
+          value={activeNote.content}
+          onChange={(e) => onEditField("content", e.target.value)}
         />
       </div>
       <div className="app-main-note-preview">
         <h1 className="preview-title">{activeNote.title}</h1>
-        <ReactMarkdown className="markdown-preview">{activeNote.body}</ReactMarkdown>
+        <ReactMarkdown className="markdown-preview">{activeNote.content}</ReactMarkdown>
       </div>
     </div>
   );

@@ -2,9 +2,8 @@ import {useState} from 'react';
 import uuid from "react-uuid";
 import './App.css';
 import Main from './Components/Main';
-import AppNavbar from './Components/AppNavbar';
+import Navbar from './Components/Navbar';
 import Sidebar from './Components/Sidebar';
-import "bootstrap/dist/css/bootstrap.min.css";
 
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
     const newNote = {
       id: uuid(),
       title: "Untitled Note",
-      body: "",
+      content: "",
       lastModified: Date.now(),
     }
     setNotes([newNote, ...notes])
@@ -42,7 +41,7 @@ function App() {
 
   return (
     <>
-      <AppNavbar sticky="top" />
+      <Navbar />
       <div className="App">
         <Sidebar
           notes={notes}
