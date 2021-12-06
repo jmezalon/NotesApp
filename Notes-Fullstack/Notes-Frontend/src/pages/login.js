@@ -1,14 +1,23 @@
-import {useState} from "react"
-import Google from "../img/google.png"
-import Github from "../img/github.png"
-const Login = ( {loginFormData, handleLoginChange, onLoginSubmit}) => {
+import { useState } from "react";
+import Google from "../img/google.png";
+import Github from "../img/github.png";
+const Login = ({ loginFormData, handleLoginChange, onLoginSubmit }) => {
   const [newUser, setnewUser] = useState(true);
-  const handleLoginSubmit = e => {
-    e.preventDefault()
-    fetch('http://localhost:9292/users')
-    .then(r => r.json())
-    .then(user => onLoginSubmit(user))
-  }
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:9292/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: loginFormData.name,
+        // password: loginFormData.password,
+      }),
+    })
+      .then((r) => r.json())
+      .then((user) => console.log(user));
+  };
   return (
     <div className="login">
       <h1 className="loginTitle">Choose a Login Method</h1>
@@ -68,6 +77,6 @@ const Login = ( {loginFormData, handleLoginChange, onLoginSubmit}) => {
       </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

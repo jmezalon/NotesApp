@@ -4,8 +4,16 @@ class ApplicationController < Sinatra::Base
   # user request  
     
     get '/users' do
-      user = User.all.find_by(name: params[username])
-      user.to_json
+      users = User.all  
+
+      users.to_json
+    end
+  
+    post '/users/login' do
+      user = User.find_by(name: params[:name])
+      # users = User.where('name=?', params[:name]) 
+      # user = users.where('name=?', params[:name])
+    user.to_json
     end
   
     post '/users' do
