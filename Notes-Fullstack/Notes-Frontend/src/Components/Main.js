@@ -24,21 +24,21 @@ function Main({ activeNote, onUpdateNote, formData, handleChange }) {
           onChange={(e) => onEditField("title", e.target.value)}
           autoFocus
         />
-        <textarea
+        {/* <textarea
           id="content"
           placeholder="Write you notes here..."
           value={activeNote.content}
           onChange={(e) => onEditField("content", e.target.value)}
-        />
-        {/* <ReactQuill
+        /> */}
+        <ReactQuill
           name="content"
           placeholder="Write you notes here..."
           theme="snow"
           value={activeNote.content}
-          onChange={(e) => onEditField("content", e.target.value)}
+          onChange={(e) => onEditField("content", e)}
           // value={formData.content}
           // onChange={handleChange}
-        /> */}
+        />
       </div>
       <div className="app-main-note-preview">
         <h1 className="preview-title">{activeNote.title}</h1>

@@ -78,6 +78,10 @@ button:hover {
   object-fit: cover;
 }
 
+.link{
+  color: inherit;
+  text-decoration: none;
+}
 
 /* LOGIN PAGE STYLES */
 
@@ -88,6 +92,7 @@ button:hover {
   justify-content: center;
 }
 
+
 .wrapper {
   width: 60%;
   height: 75%;
@@ -97,6 +102,12 @@ button:hover {
   border-radius: 20px;
 }
 
+.loginTitle {
+  top: 200px;
+  position: absolute;
+  color: lightgray;
+}
+
 .left-side,.right-side{
   flex: 1;
   display: flex;
@@ -104,7 +115,82 @@ button:hover {
   align-items: center;
 }
 
-.
+.center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.centerText {
+  border: 2px solid lightgray;
+  padding: 10px;
+  border-radius: 50%;
+  color: grey;
+  background-color: white;
+  font-weight: bold;
+}
+
+.line {
+  width: 0.5px;
+  height: 70%;
+  background-color: lightgray;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: -1;
+}
+
+/* Left Side Styles */
+
+.loginButton {
+  width: 150px;
+  padding: 15px 25px;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.google {
+  background-color: black;
+}
+
+.github {
+  background-color: black;
+}
+
+/* Right Side Styles */
+
+input {
+  width: 200px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+}
+
+.submit {
+  width: 200px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+
+
 /* HOME PAGE STYLES */
 
 /* SIDEBAR STYLES */
