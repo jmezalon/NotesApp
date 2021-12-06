@@ -35,6 +35,59 @@ button:hover {
   display: flex;
 }
 
+
+/* NAVBAR STYLES */
+
+.navbar {
+  height: 50px;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: inherit;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 3%;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin-right: 3%;
+}
+
+.listItem {
+  margin-right: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.username {
+  margin-right: 20px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* LOGIN PAGE STYLES */
+
+.login{
+  height: calc(100vh - 50px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* HOME PAGE STYLES */
+
 /* SIDEBAR STYLES */
 
 .app-sidebar {
@@ -143,43 +196,3 @@ textarea {
   line-height: 2rem;
 }
 
-/* NAVBAR STYLES */
-.navbar {
-  height: 50px;
-  background-color: black;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: inherit;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-  margin-left: 3%;
-}
-
-.list {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  margin-right: 3%;
-}
-
-.listItem {
-  margin-right: 20px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.username {
-  margin-right: 20px;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
