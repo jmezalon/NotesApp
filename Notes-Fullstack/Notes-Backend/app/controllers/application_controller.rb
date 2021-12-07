@@ -13,7 +13,7 @@ class ApplicationController < Sinatra::Base
       user = User.find_by(name: params[:name])
       # users = User.where('name=?', params[:name]) 
       # user = users.where('name=?', params[:name])
-    user.to_json
+      user.to_json
     end
   
     post '/users' do
