@@ -5,9 +5,10 @@ function Sidebar({
   onAddNote,
   onAddNotebook,
   notebooks,
+  activeNote,
+  setActiveNote
 }) {
   const [currentID, setCurrentID] = useState("");
-  const [activeNote, setActiveNote] = useState(false);
 
   return (
     <div className="app-sidebar">
