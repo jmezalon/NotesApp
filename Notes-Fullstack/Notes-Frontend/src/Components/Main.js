@@ -3,22 +3,27 @@ import {useEffect, useState} from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function Main({ activeNote, onUpdateNote }) {
+function Main({ activeNote }) 
+{
   const [workingNote, setWorkingNote] = useState(false)
   
   const onEditField = (key, value) => {
     
-    onUpdateNote({
-      ...workingNote,
-      [key]: value,
-      last_modified: Date.now(),
-      })
+    // onUpdateNote({
+    //   ...workingNote,
+    //   [key]: value,
+    //   last_modified: Date.now(),
+    //   })
   };
+
+
+  //   setNotes(updatedNotesArray);
+  // };
 
   useEffect(() => {
     fetch(`http://localhost:9292/notes/${activeNote}`)
     .then((r) => r.json())
-    .then((note) => setWorkingNote(workingNote))
+    .then((note) => setWorkingNote(note))
   }, [activeNote]);
 
   
@@ -32,34 +37,35 @@ function Main({ activeNote, onUpdateNote }) {
         <input
           type="text"
           id="title"
-          value={activeNote.title}
+          value={workingNote.title}
           onChange={(e) => onEditField("title", e.target.value)}
           autoFocus
         />
         {/* <textarea
           id="content"
           placeholder="Write you notes here..."
-          value={activeNote.content}
+          value={workingNote.content}
           onChange={(e) => onEditField("content", e.target.value)}
         /> */}
         <ReactQuill
           name="content"
           placeholder="Write you notes here..."
           theme="snow"
-          value={activeNote.content}
+          value={workingNote.content}
           onChange={(e) => onEditField("content", e)}
           // value={formData.content}
           // onChange={handleChange}
         />
       </div>
       <div className="app-main-note-preview">
-        <h1 className="preview-title">{activeNote.title}</h1>
+        <h1 className="preview-title">{workingNote.title}</h1>
         <ReactMarkdown className="markdown-preview">
-          {/* {activeNote.content} */}
+          {/* {workingNote.content} */}
         </ReactMarkdown>
       </div>
     </div>
   );
 }
+
 
 export default Main;

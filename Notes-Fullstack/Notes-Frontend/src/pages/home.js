@@ -4,8 +4,6 @@ import Sidebar from "../Components/Sidebar";
 
 const Home = ({notebooks}) => {
   const [activeNote, setActiveNote] = useState(false);
-  const [allNotes, setAllNotes] = useState([])
-  const [note, setNote] = useState([])
 
 
   // const onAddNotebook = () => {
