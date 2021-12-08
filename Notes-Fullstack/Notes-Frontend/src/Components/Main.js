@@ -6,27 +6,28 @@ import "react-quill/dist/quill.snow.css";
 function Main({ activeNote }) 
 {
   const [workingNote, setWorkingNote] = useState(false)
-  
-  const onEditField = (key, value) => {
-    
-    // onUpdateNote({
-    //   ...workingNote,
-    //   [key]: value,
-    //   last_modified: Date.now(),
-    //   })
-  };
+  const [title, setTitle] = useState("Untitled")
+  const [content, setContent] = useState("Hi")
 
-
-  //   setNotes(updatedNotesArray);
-  // };
+  const handleSave = () => {
+    fetch(`http://localhost:9292/notes/$activeNote`, {
+      method: "Patch",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title: title, content: content }),
+    });
+  }
 
   useEffect(() => {
     fetch(`http://localhost:9292/notes/${activeNote}`)
     .then((r) => r.json())
-    .then((note) => setWorkingNote(note))
+    .then((note) => {
+      setWorkingNote(note)
+      setTitle(note.title)
+      setContent(note.content)
+    })
   }, [activeNote]);
-
-  
 
   if(!activeNote) {return <div className="no-active-note">No Note Selected</div>}
 
@@ -37,32 +38,18 @@ function Main({ activeNote })
         <input
           type="text"
           id="title"
-          value={workingNote.title}
-          onChange={(e) => onEditField("title", e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           autoFocus
         />
-        {/* <textarea
+        <textarea
           id="content"
           placeholder="Write you notes here..."
-          value={workingNote.content}
-          onChange={(e) => onEditField("content", e.target.value)}
-        /> */}
-        <ReactQuill
-          name="content"
-          placeholder="Write you notes here..."
-          theme="snow"
-          value={workingNote.content}
-          onChange={(e) => onEditField("content", e)}
-          // value={formData.content}
-          // onChange={handleChange}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
       </div>
-      <div className="app-main-note-preview">
-        <h1 className="preview-title">{workingNote.title}</h1>
-        <ReactMarkdown className="markdown-preview">
-          {/* {workingNote.content} */}
-        </ReactMarkdown>
-      </div>
+      <button onClick={handleSave}>SAVE</button>
     </div>
   );
 }
