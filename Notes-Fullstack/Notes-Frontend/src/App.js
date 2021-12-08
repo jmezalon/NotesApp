@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 function App() {
   const [user, setUser] = useState("");
   const [notebooks, setNotebooks] = useState([]);
+  const [notes, setNotes] = useState([]);
   const [loginFormData, setLoginFormData] = useState({
     name: "",
     email: "",
@@ -75,7 +76,12 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-        <Navbar user={user} />
+        <Navbar
+          user={user}
+          setNotebooks={setNotebooks}
+          setNotes={setNotes}
+          setUser={setUser}
+        />
         <Routes>
           <Route
             path="/"
