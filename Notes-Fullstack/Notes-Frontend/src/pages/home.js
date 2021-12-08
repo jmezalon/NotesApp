@@ -10,10 +10,17 @@ const Home = () => {
     title: "Untitled Note",
     content: "",
   });
-  // const [content, setContent] = useState("");
+  const [notebooks, setNotebooks] = useState([])
+
+  const onAddNotebook = () => {
+    const newNotebook = {
+      id: uuid(),
+      title: "Untitled Note",
+    };
+    setNotebooks([newNotebook, ...notebooks]);
+  };
 
   const handleChange = (e) => {
-    debugger;
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -45,6 +52,8 @@ const Home = () => {
   const getActiveNote = () => {
     return notes.find((note) => note.id === activeNote);
   };
+
+
 
   return (
     <div className="App">

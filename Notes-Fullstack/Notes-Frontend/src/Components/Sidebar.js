@@ -1,34 +1,44 @@
+import Notebook from "./Notebook";
 
-function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote }) 
+function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote, onAddNotebook, notebooks }) 
 {
-  const sortedNotes = notes.sort((a, b) => b.last_modified - a.last_modified)
 
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
         <h1>Your Notes</h1>
-        <button onClick={onAddNote}>Add</button>
+        <button onClick={onAddNote}>Add Note</button>
+        <button onClick={onAddNotebook}>Add Notebook</button>
       </div>
-      <div className="app-sidebar-notes">
-        {sortedNotes.map((note) => (
-          <div
-            className={`app-sidebar-note ${note.id === activeNote && "active"}`}
-            onClick={() => setActiveNote(note.id)}
-          >
-            <div className="sidebar-note-title">
-              <strong>{note.title}</strong>
-              <button onClick={() => onDeleteNote(note.id)}>Delete</button>
-            </div>
-            <p>{note.content && note.content.substr(0, 40) + "..."}</p>
-            <small classname="note-meta">
-              Last modified{" "}
-              {new Date(note.last_modified).toLocaleDateString("en-us", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </small>
-          </div>
-        ))}
+      <div className="nav">
+        <div className="multi-level">
+          {/* {notebooks.map((note) => (
+            <Notebook
+              note={note}
+              onDeleteNote={onDeleteNote}
+              activeNote={activeNote}
+              setActiveNote={setActiveNote}
+            />
+          ))} */}
+          <Notebook
+            // notebook={notebook}
+            notes={notes}
+            onAddNote={onAddNote}
+            onDeleteNote={onDeleteNote}
+            activeNote={activeNote}
+            setActiveNote={setActiveNote}
+          />
+          {/* {notebooks.map((notebook) => (
+            <Notebook
+              notebook={notebook}
+              notes={notes}
+              onAddNote={onAddNote}
+              onDeleteNote={onDeleteNote}
+              activeNote={activeNote}
+              setActiveNote={setActiveNote}
+            />
+          ))} */}
+        </div>
       </div>
     </div>
   );
@@ -36,3 +46,4 @@ function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote })
 
 
 export default Sidebar;
+
