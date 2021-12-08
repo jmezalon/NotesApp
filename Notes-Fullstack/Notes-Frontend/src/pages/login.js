@@ -1,23 +1,33 @@
 import { useState } from "react";
 import Google from "../img/google.png";
 import Github from "../img/github.png";
-const Login = ({ loginFormData, handleLoginChange, onLoginSubmit }) => {
+const Login = ({
+  loginFormData,
+  handleLoginChange,
+  setUser,
+  getNotebooks,
+  onLoginSubmit,
+}) => {
   const [newUser, setnewUser] = useState(false);
-  // const handleLoginSubmit = (e) => {
-  //   e.preventDefault();
-  //   fetch("http://localhost:9292/users/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       name: loginFormData.name,
-  //       password: loginFormData.password,
-  //     }),
-  //   })
-  //     .then((r) => r.json())
-  //     .then((user) => onLoginSubmit(user));
-  // };
+  const onSignupSubmit = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:9292/users/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: loginFormData.name,
+        email: loginFormData.email,
+        password: loginFormData.password,
+      }),
+    })
+      .then((r) => r.json())
+      .then((user) => {
+        setUser(user);
+        getNotebooks(user.id);
+      });
+  };
   return (
     <div className="login">
       <h1 className="loginTitle">Choose a Login Method</h1>
@@ -40,27 +50,27 @@ const Login = ({ loginFormData, handleLoginChange, onLoginSubmit }) => {
           {newUser ? (
             <>
               <h2 className="form-header">New User</h2>
-              <form>
+              <form onSubmit={onSignupSubmit}>
                 <input
-                  name="username"
+                  name="name"
                   type="text"
                   placeholder="Username"
-                  // value={loginFormData.username}
-                  // onChange={handleLoginChange}
+                  value={loginFormData.username}
+                  onChange={handleLoginChange}
                 />
                 <input
                   name="password"
                   type="text"
                   placeholder="Password"
-                  // value={loginFormData.password}
-                  // onChange={handleLoginChange}
+                  value={loginFormData.password}
+                  onChange={handleLoginChange}
                 />
                 <input
                   name="email"
                   type="text"
                   placeholder="Email"
-                  // value={loginFormData.email}
-                  // onChange={handleLoginChange}
+                  value={loginFormData.email}
+                  onChange={handleLoginChange}
                 />
                 <button className="submit">Sign Up</button>
               </form>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Navbar = ( {user} ) => {
+const Navbar = ({ user }) => {
   return (
     <div className="navbar">
       <span className="logo">Notes App</span>
@@ -9,11 +9,13 @@ const Navbar = ( {user} ) => {
           <li className="listItem">
             <img src="" alt="" className="avatar" />
           </li>
-          <li className="listItem, username">Username</li>
+          <li className="listItem, username">{user.name}</li>
           <li className="listItem">Logout</li>
         </ul>
       ) : (
-        <Link className="link username" to="/">Login</Link>
+        <Link className="link username" to="/">
+          Login
+        </Link>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import Home from "./pages/Home";
@@ -10,15 +10,31 @@ function App() {
   const [notebooks, setNotebooks] = useState([]);
   const [loginFormData, setLoginFormData] = useState({
     name: "",
+    email: "",
     password: "",
   });
 
-  useEffect(() => {
-    fetch(`http://localhost:9292/${user.id}/notebooks`)
+  function getNotebooks(id) {
+    fetch(`http://localhost:9292/${id}/notebooks`)
       .then((r) => r.json())
       .catch((e) => console.log(e))
-      .then((data) => setNotebooks(data));
-  }, [user]);
+      .then((notebooks) => {
+        if (notebooks.length === 0) {
+          fetch(`http://localhost:9292/${id}/notebooks`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ title: "new notebook", user_id: id }),
+          })
+            .then((r) => r.json())
+            .catch((e) => console.log(e))
+            .then((notebook) => setNotebooks(notebook));
+        } else {
+          setNotebooks(notebooks);
+        }
+      });
+  }
 
   const handleLoginChange = (e) => {
     setLoginFormData({
@@ -46,6 +62,7 @@ function App() {
       .then((user) => {
         if (user) {
           if (user.password === loginFormData.password) {
+            getNotebooks(user.id);
             setUser(user);
           } else {
             console.log("You aint valid");
@@ -70,6 +87,8 @@ function App() {
                   onLoginSubmit={onLoginSubmit}
                   loginFormData={loginFormData}
                   handleLoginChange={handleLoginChange}
+                  setUser={setUser}
+                  getNotebooks={getNotebooks}
                 />
               )
             }

@@ -12,3 +12,5 @@ use Rack::Cors do
 use Rack::JSONBodyParser
 
 run ApplicationController
+use NotesController
+use NotebooksController
