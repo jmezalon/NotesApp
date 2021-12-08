@@ -7,6 +7,7 @@ const Login = ({
   setUser,
   getNotebooks,
   onLoginSubmit,
+  setLoginFormData,
 }) => {
   const [newUser, setnewUser] = useState(false);
   const onSignupSubmit = (e) => {
@@ -26,6 +27,11 @@ const Login = ({
       .then((user) => {
         setUser(user);
         getNotebooks(user.id);
+        setLoginFormData({
+          name: "",
+          email: "",
+          password: "",
+        });
       });
   };
   return (

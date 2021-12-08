@@ -65,6 +65,11 @@ function App() {
           if (user.password === loginFormData.password) {
             getNotebooks(user.id);
             setUser(user);
+            setLoginFormData({
+              name: "",
+              email: "",
+              password: "",
+            });
           } else {
             console.log("You aint valid");
           }
@@ -81,6 +86,7 @@ function App() {
           setNotebooks={setNotebooks}
           setNotes={setNotes}
           setUser={setUser}
+          setLoginFormData={setLoginFormData}
         />
         <Routes>
           <Route
@@ -95,6 +101,7 @@ function App() {
                   handleLoginChange={handleLoginChange}
                   setUser={setUser}
                   getNotebooks={getNotebooks}
+                  setLoginFormData={setLoginFormData}
                 />
               )
             }

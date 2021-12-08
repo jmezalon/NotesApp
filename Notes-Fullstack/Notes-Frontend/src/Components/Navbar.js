@@ -1,10 +1,21 @@
 import { Link } from "react-router-dom";
 
-const Navbar = ({ user, setNotebooks, setUser, setNotes }) => {
+const Navbar = ({
+  user,
+  setNotebooks,
+  setUser,
+  setLoginFormData,
+  setNotes,
+}) => {
   function handleLogout() {
     setUser("");
     setNotebooks([]);
     setNotes([]);
+    setLoginFormData({
+      name: "",
+      email: "",
+      password: "",
+    });
   }
   return (
     <div className="navbar">
