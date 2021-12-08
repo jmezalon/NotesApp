@@ -1,9 +1,13 @@
 import Notebook from "./Notebook";
 import {useState} from "react"
 
-function Sidebar({ onAddNote, onAddNotebook, notebooks }) 
-{
-  const [currentID, setCurrentID] = useState("")
+function Sidebar({
+  onAddNote,
+  onAddNotebook,
+  notebooks,
+}) {
+  const [currentID, setCurrentID] = useState("");
+  const [activeNote, setActiveNote] = useState(false);
 
   return (
     <div className="app-sidebar">
@@ -14,13 +18,16 @@ function Sidebar({ onAddNote, onAddNotebook, notebooks })
       </div>
       <div className="nav">
         <div className="multi-level">
-          {notebooks.length !== 0 && notebooks.map((notebook) => (
-            <Notebook
-              notebook={notebook}
-              setCurrentID={setCurrentID}
-              currentID={currentID}
-            />
-          ))}
+          {notebooks.length !== 0 &&
+            notebooks.map((notebook) => (
+              <Notebook
+                notebook={notebook}
+                setCurrentID={setCurrentID}
+                currentID={currentID}
+                activeNote={activeNote}
+                setActiveNote={setActiveNote}
+              />
+            ))}
         </div>
       </div>
     </div>
