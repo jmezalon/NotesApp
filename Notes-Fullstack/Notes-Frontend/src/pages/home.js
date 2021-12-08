@@ -1,75 +1,48 @@
-import { useState } from "react";
-import uuid from "react-uuid";
+import { useState, useEffect } from "react";
 import Main from "../Components/Main";
 import Sidebar from "../Components/Sidebar";
 
-const Home = () => {
-  const [notes, setNotes] = useState([]);
+const Home = ({notebooks}) => {
   const [activeNote, setActiveNote] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "Untitled Note",
-    content: "",
-  });
-  const [notebooks, setNotebooks] = useState([])
+  const [allNotes, setAllNotes] = useState([])
 
-  const onAddNotebook = () => {
-    const newNotebook = {
-      id: uuid(),
-      title: "Untitled Note",
-    };
-    setNotebooks([newNotebook, ...notebooks]);
-  };
+  
+  
+  const getAllNotes = () => {
+    setAllNotes([])
+    notebooks.map((notebook) => 
+    {
+      fetch(`http://localhost:9292/${notebook.id}/notes`)
+      .then((r) => r.json())
+      .catch((e) => console.log(e))
+      .then((notes) => {
+        setAllNotes([notes, ...allNotes]);
+      })
+    })
+    console.log(allNotes)
+  }
+  
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const onAddNote = () => {
-    const newNote = {
-      id: uuid(),
-      title: "Untitled Note",
-      content: " ",
-      last_modified: Date.now(),
-    };
-    setNotes([newNote, ...notes]);
-  };
-
-  const onDeleteNote = (idToDelete) => {
-    setNotes(notes.filter((note) => note.id !== idToDelete));
-  };
-
-  const onUpdateNote = (updatedNote) => {
-    const updatedNotesArray = notes.map((note) => {
-      if (note.id === activeNote) {
-        return updatedNote;
-      }
-      return note;
-    });
-
-    setNotes(updatedNotesArray);
-  };
-
-  const getActiveNote = () => {
-    return notes.find((note) => note.id === activeNote);
-  };
+  useEffect(()=>{
+    getAllNotes()
+  },[notebooks])
+  
+  // const getActiveNote = () => {
+  //   return notes.find((note) => note.id === activeNote);
+  // };
 
 
-
+  // const onAddNotebook = () => {
+  //   const newNotebook = {
+  //     id: uuid(),
+  //     title: "Untitled Note",
+  //   };
+  //   setNotebooks([newNotebook, ...notebooks]);
+  // };
   return (
     <div className="App">
-      <Sidebar
-        notes={notes}
-        onAddNote={onAddNote}
-        onDeleteNote={onDeleteNote}
-        activeNote={activeNote}
-        setActiveNote={setActiveNote}
-      />
-      <Main
-        activeNote={getActiveNote()}
-        onUpdateNote={onUpdateNote}
-        handleChange={handleChange}
-        formData={formData}
-      />
+      <Sidebar notebooks={notebooks} activeNote={activeNote} setActiveNote={setActiveNote}/>
+      <Main />
     </div>
   );
 };
