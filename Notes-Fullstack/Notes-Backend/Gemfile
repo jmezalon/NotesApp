@@ -28,6 +28,10 @@ gem "sqlite3", "~> 1.4"
 # https://github.com/jarmo/require_all
 gem "require_all"
 
+# More Rack middleware! Used to handle CORS requests
+# https://github.com/cyu/rack-cors
+gem "rack-cors", "~> 1.1"
+
 # These gems will only be used when we are running the application locally
 group :development do
   # Used to generate seed data
