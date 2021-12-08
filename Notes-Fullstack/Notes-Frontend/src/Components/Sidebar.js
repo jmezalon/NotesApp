@@ -12,7 +12,15 @@ function Sidebar({ notes, onAddNote, onDeleteNote, activeNote, setActiveNote, on
       </div>
       <div className="nav">
         <div className="multi-level">
-          <Notebook 
+          {/* {notebooks.map((note) => (
+            <Notebook
+              note={note}
+              onDeleteNote={onDeleteNote}
+              activeNote={activeNote}
+              setActiveNote={setActiveNote}
+            />
+          ))} */}
+          <Notebook
             // notebook={notebook}
             notes={notes}
             onAddNote={onAddNote}

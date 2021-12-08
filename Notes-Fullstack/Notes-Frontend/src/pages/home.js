@@ -10,15 +10,19 @@ const Home = () => {
     title: "Untitled Note",
     content: "",
   });
-  const [activeNotebook, setActiveNotebook] = useState(false);
+  const [notebooks, setNotebooks] = useState([])
+
+  const onAddNotebook = () => {
+    const newNotebook = {
+      id: uuid(),
+      title: "Untitled Note",
+    };
+    setNotebooks([newNotebook, ...notebooks]);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  // const getActiveNotebook = () => {
-  //   return notebooks.find((notebook) => notebook.id === activeNote);
-  // };
 
   const onAddNote = () => {
     const newNote = {
@@ -28,7 +32,6 @@ const Home = () => {
       last_modified: Date.now(),
     };
     setNotes([newNote, ...notes]);
-    
   };
 
   const onDeleteNote = (idToDelete) => {
