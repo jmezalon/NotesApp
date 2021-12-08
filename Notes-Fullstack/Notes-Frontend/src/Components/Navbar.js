@@ -4,7 +4,6 @@ const Navbar = ({ user, setNotebooks, setUser, setNotes }) => {
   function handleLogout() {
     setUser("");
     setNotebooks([]);
-    setNotes([]);
   }
   return (
     <div className="navbar">

@@ -8,7 +8,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 function App() {
   const [user, setUser] = useState("");
   const [notebooks, setNotebooks] = useState([]);
-  const [notes, setNotes] = useState([]);
   const [loginFormData, setLoginFormData] = useState({
     name: "",
     email: "",
@@ -30,7 +29,7 @@ function App() {
           })
             .then((r) => r.json())
             .catch((e) => console.log(e))
-            .then((notebook) => setNotebooks(notebook));
+            .then((notebook) => setNotebooks([notebook]));
         } else {
           setNotebooks(notebooks);
         }
@@ -79,7 +78,6 @@ function App() {
         <Navbar
           user={user}
           setNotebooks={setNotebooks}
-          setNotes={setNotes}
           setUser={setUser}
         />
         <Routes>
@@ -99,7 +97,7 @@ function App() {
               )
             }
           />
-          <Route path="/:id" element={user ? <Home /> : <Navigate to="/" />} />
+          <Route path="/:id" element={user ? <Home notebooks={notebooks} /> : <Navigate to="/" />} />
         </Routes>
       </div>
     </BrowserRouter>
