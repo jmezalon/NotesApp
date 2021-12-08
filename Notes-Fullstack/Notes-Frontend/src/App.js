@@ -64,6 +64,7 @@ function App() {
           if (user.password === loginFormData.password) {
             getNotebooks(user.id);
             setUser(user);
+            setLoginFormData({ name: "", email: "", password: "" });
           } else {
             console.log("You aint valid");
           }
@@ -72,6 +73,11 @@ function App() {
         }
       });
   }
+
+  function onDeleteNotebook(id) {
+    const updateNotebooks = notebooks.filter((nbk) => nbk.id !== id);
+    setNotebooks(updateNotebooks);
+  }
   return (
     <BrowserRouter>
       <div>
@@ -79,6 +85,7 @@ function App() {
           user={user}
           setNotebooks={setNotebooks}
           setUser={setUser}
+          setLoginFormData={setLoginFormData}
         />
         <Routes>
           <Route
@@ -93,11 +100,26 @@ function App() {
                   handleLoginChange={handleLoginChange}
                   setUser={setUser}
                   getNotebooks={getNotebooks}
+                  setLoginFormData={setLoginFormData}
                 />
               )
             }
           />
-          <Route path="/:id" element={user ? <Home notebooks={notebooks} /> : <Navigate to="/" />} />
+          <Route
+            path="/:id"
+            element={
+              user ? (
+                <Home
+                  notebooks={notebooks}
+                  setNotebooks={setNotebooks}
+                  user={user}
+                  onDeleteNotebook={onDeleteNotebook}
+                />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
         </Routes>
       </div>
     </BrowserRouter>

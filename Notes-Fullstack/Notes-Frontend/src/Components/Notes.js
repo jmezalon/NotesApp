@@ -1,6 +1,10 @@
+const Notes = ({ note, onDeleteNote, activeNote, setActiveNote }) => {
+  function handleDeleteNote() {
+    fetch(`http://localhost:9292/notes/${note.id}`, {
+      method: "DELETE",
+    }).then(() => onDeleteNote(note.id));
+  }
 
-
-const Notes = ( {note, onDeleteNote, activeNote, setActiveNote} ) => {
   return (
     <li
       className={`app-sidebar-note ${note.id === activeNote && "active"}`}
@@ -8,7 +12,7 @@ const Notes = ( {note, onDeleteNote, activeNote, setActiveNote} ) => {
     >
       <div className="sidebar-note-title">
         <strong>{note.title}</strong>
-        <button onClick={() => onDeleteNote(note.id)}>Delete</button>
+        <button onClick={handleDeleteNote}>Delete</button>
       </div>
       {/* <p>{note.content && note.content.substr(0, 40) + "..."}</p>
       <small classname="note-meta">
@@ -22,4 +26,4 @@ const Notes = ( {note, onDeleteNote, activeNote, setActiveNote} ) => {
   );
 };
 
-export default Notes
+export default Notes;

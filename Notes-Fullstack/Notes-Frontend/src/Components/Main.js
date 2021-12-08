@@ -1,5 +1,4 @@
 import ReactMarkdown from "react-markdown";
-import {useState} from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -9,10 +8,12 @@ function Main({ activeNote, onUpdateNote, formData, handleChange }) {
       ...activeNote,
       [key]: value,
       last_modified: Date.now(),
-      })
+    });
   };
 
-  if(!activeNote) {return <div className="no-active-note">No Note Selected</div>}
+  if (!activeNote) {
+    return <div className="no-active-note">No Note Selected</div>;
+  }
 
   return (
     <div className="app-main">
