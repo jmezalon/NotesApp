@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
   const [loginFormData, setLoginFormData] = useState({
     username: "",
     password: ""
