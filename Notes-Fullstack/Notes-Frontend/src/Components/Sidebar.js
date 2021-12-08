@@ -1,9 +1,15 @@
 import Notebook from "./Notebook";
 import { useState } from "react";
 
-function Sidebar({ onDeleteNotebook, user, onAddNotebook, notebooks }) {
+function Sidebar({
+  onAddNotebook,
+  notebooks,
+  activeNote,
+  setActiveNote,
+  onDeleteNotebook,
+  user,
+}) {
   const [currentID, setCurrentID] = useState("");
-  const [activeNote, setActiveNote] = useState(false);
 
   function handleAddNotebook() {
     fetch(`http://localhost:9292/${user.id}/notebooks`, {

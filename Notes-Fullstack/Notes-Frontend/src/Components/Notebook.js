@@ -8,6 +8,7 @@ const Notebook = ({
   currentID,
   activeNote,
   setActiveNote,
+
   onDeleteNotebook,
 }) => {
   const [notes, setNotes] = useState([]);

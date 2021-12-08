@@ -1,15 +1,32 @@
 import ReactMarkdown from "react-markdown";
+import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function Main({ activeNote, onUpdateNote, formData, handleChange }) {
-  const onEditField = (key, value) => {
-    onUpdateNote({
-      ...activeNote,
-      [key]: value,
-      last_modified: Date.now(),
+function Main({ activeNote }) {
+  const [workingNote, setWorkingNote] = useState(false);
+  const [title, setTitle] = useState("Untitled");
+  const [content, setContent] = useState("Hi");
+
+  const handleSave = () => {
+    fetch(`http://localhost:9292/notes/$activeNote`, {
+      method: "Patch",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title: title, content: content }),
     });
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:9292/notes/${activeNote}`)
+      .then((r) => r.json())
+      .then((note) => {
+        setWorkingNote(note);
+        setTitle(note.title);
+        setContent(note.content);
+      });
+  }, [activeNote]);
 
   if (!activeNote) {
     return <div className="no-active-note">No Note Selected</div>;
@@ -21,32 +38,18 @@ function Main({ activeNote, onUpdateNote, formData, handleChange }) {
         <input
           type="text"
           id="title"
-          value={activeNote.title}
-          onChange={(e) => onEditField("title", e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           autoFocus
         />
-        {/* <textarea
+        <textarea
           id="content"
           placeholder="Write you notes here..."
-          value={activeNote.content}
-          onChange={(e) => onEditField("content", e.target.value)}
-        /> */}
-        <ReactQuill
-          name="content"
-          placeholder="Write you notes here..."
-          theme="snow"
-          value={activeNote.content}
-          onChange={(e) => onEditField("content", e)}
-          // value={formData.content}
-          // onChange={handleChange}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
       </div>
-      <div className="app-main-note-preview">
-        <h1 className="preview-title">{activeNote.title}</h1>
-        <ReactMarkdown className="markdown-preview">
-          {activeNote.content}
-        </ReactMarkdown>
-      </div>
+      <button onClick={handleSave}>SAVE</button>
     </div>
   );
 }

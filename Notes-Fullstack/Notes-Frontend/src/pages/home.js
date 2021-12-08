@@ -5,10 +5,6 @@ import Sidebar from "../Components/Sidebar";
 const Home = ({ notebooks, onDeleteNotebook, setNotebooks, user }) => {
   const [activeNote, setActiveNote] = useState(false);
 
-  // const getActiveNote = () => {
-  //   return notes.find((note) => note.id === activeNote);
-  // };
-
   const onAddNotebook = (newNotebook) => {
     setNotebooks([newNotebook, ...notebooks]);
   };
@@ -23,7 +19,7 @@ const Home = ({ notebooks, onDeleteNotebook, setNotebooks, user }) => {
         onAddNotebook={onAddNotebook}
         onDeleteNotebook={onDeleteNotebook}
       />
-      <Main />
+      <Main activeNote={activeNote} />
     </div>
   );
 };
