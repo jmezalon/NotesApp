@@ -261,6 +261,9 @@ input {
 .bye_notebook {
   color: crimson;
 }
+.add_button {
+  margin-left: 75%;
+}
 
 .inactive .add_button {
   display: none;
@@ -377,7 +380,7 @@ label {
     width: 100%;
     background-color: white;
     overflow-x: hidden;
-    height: calc(100% - 136px);
+    height: calc(100% - 123px);
     overflow: scroll;
     /* border-bottom: 1px solid #CFD8DC; */
 }

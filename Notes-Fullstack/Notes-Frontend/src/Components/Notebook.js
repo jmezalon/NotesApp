@@ -5,8 +5,6 @@ import Arrow from "../img/arrow.png";
 
 const Notebook = ({
   notebook,
-  setCurrentID,
-  currentID,
   activeNote,
   setActiveNote,
   onUpdateTitle,
@@ -18,7 +16,7 @@ const Notebook = ({
   const [active, setActive] = useState(false)
 
   function handleAddNote() {
-    fetch(`http://localhost:9292/${currentID}/notes`, {
+    fetch(`http://localhost:9292/${notebook.id}/notes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +24,7 @@ const Notebook = ({
       body: JSON.stringify({
         title: "Add title",
         content: "",
-        notebook_id: currentID,
+        notebook_id: notebook.id,
       }),
     })
       .then((r) => r.json())
@@ -41,15 +39,7 @@ const Notebook = ({
     setActiveNote(false);
   };
 
-  const onSavedNote = (updatedNote) => {
-    const updatedNotesArray = notes.map((note) => {
-      if (note.id === activeNote) {
-        return updatedNote;
-      }
-      return note;
-    });
-    setNotes(updatedNotesArray);
-  };
+  
 
   // const sortedNotes = notes.sort((a, b) => b.last_modified - a.last_modified);
 
@@ -162,10 +152,12 @@ const Notebook = ({
             />
           ))}
         <button
-          className={`${active ? "active" : "inactive"} add_button`}
+          className={`${
+            active ? "active" : "inactive"
+          } add_button`}
           onClick={handleAddNote}
         >
-          Add Note
+          Create Note
         </button>
       </ul>
     </div>
