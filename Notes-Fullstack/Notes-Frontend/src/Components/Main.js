@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "react-quill/dist/quill.snow.css";
+
 
 function Main({ activeNote, setForRender, forRender }) {
-  // const [workingNote, setWorkingNote] = useState(false);
+
   const [title, setTitle] = useState("Untitled");
   const [content, setContent] = useState("Hi");
 
@@ -21,7 +21,6 @@ function Main({ activeNote, setForRender, forRender }) {
     fetch(`http://localhost:9292/notes/${activeNote}`)
       .then((r) => r.json())
       .then((note) => {
-        // setWorkingNote(note);
         setTitle(note.title);
         setContent(note.content);
       });
