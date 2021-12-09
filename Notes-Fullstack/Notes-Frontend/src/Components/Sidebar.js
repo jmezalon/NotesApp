@@ -10,8 +10,6 @@ function Sidebar({
   onDeleteNotebook,
   user,
 }) {
-  const [currentID, setCurrentID] = useState("");
-
   function handleAddNotebook() {
     fetch(`http://localhost:9292/${user.id}/notebooks`, {
       method: "POST",
@@ -52,8 +50,6 @@ function Sidebar({
                 key={notebook.id}
                 onDeleteNotebook={onDeleteNotebook}
                 notebook={notebook}
-                setCurrentID={setCurrentID}
-                currentID={currentID}
                 activeNote={activeNote}
                 setActiveNote={setActiveNote}
                 onUpdateTitle={onUpdateTitle}
