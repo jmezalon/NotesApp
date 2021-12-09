@@ -39,15 +39,15 @@ const Notebook = ({
     setActiveNote(false);
   };
 
-  // const onSavedNote = (updatedNote) => {
-  //   const updatedNotesArray = notes.map((note) => {
-  //     if (note.id === activeNote) {
-  //       return updatedNote;
-  //     }
-  //     return note;
-  //   });
-  //   setNotes(updatedNotesArray);
-  // };
+  const onSavedNote = (updatedNote) => {
+    const updatedNotesArray = notes.map((note) => {
+      if (note.id === activeNote) {
+        return updatedNote;
+      }
+      return note;
+    });
+    setNotes(updatedNotesArray);
+  };
 
   // const sortedNotes = notes.sort((a, b) => b.last_modified - a.last_modified);
 
@@ -92,7 +92,11 @@ const Notebook = ({
   }
 
   function handleFocusChange() {
-    text ? onNotebookTitleChange() : setToggle(false);
+    if (text) {
+      onNotebookTitleChange();
+    } else {
+      setToggle(false);
+    }
   }
 
   return (
@@ -125,12 +129,13 @@ const Notebook = ({
           onBlur={handleFocusChange}
           onKeyDown={(event) => {
             if (event.key === "Enter" || event.key === "Escape") {
-              console.log("key press");
               onNotebookTitleChange();
-              event.stopPropagation();
+              // event.stopPropagation();
             }
           }}
-          value={text || notebook.title}
+          value={
+            notebook.title !== "New notebook" ? text || notebook.title : text
+          }
         />
       )}
       <button onClick={handleAddNote}>Add Note</button>
