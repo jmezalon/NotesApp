@@ -14,6 +14,7 @@ const Notebook = ({
   const [notes, setNotes] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [text, setText] = useState("");
+  const [active, setActive] = useState(false)
 
   function handleAddNote() {
     fetch(`http://localhost:9292/${currentID}/notes`, {
@@ -99,51 +100,47 @@ const Notebook = ({
     }
   }
 
+  const handleActive = () => {
+    setActive(!active)
+  }
+
   return (
-    <div
-      className={`app-sidebar-notebook ${
-        notebook.id === currentID && "active"
-      }`}
-      onClick={() => {
-        getNotes(notebook.id);
-        setCurrentID(notebook.id);
-      }}
-    >
-      <input type="checkbox" id="A" />
-      <img src={Arrow} alt="" className="arrow" />
-      {!toggle ? (
-        <label
-          onDoubleClick={() => setToggle(!toggle)}
-          htmlFor="notebook title"
-        >
-          {notebook.title}
-        </label>
-      ) : (
-        <input
-          id="notebook-title"
-          type="text"
-          name="text"
-          autoFocus
-          autoCapitalize
-          onChange={handleChange}
-          onBlur={handleFocusChange}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === "Escape") {
-              onNotebookTitleChange();
-              // event.stopPropagation();
-            }
-          }}
-          value={
-            notebook.title !== "New notebook" ? text || notebook.title : text
-          }
-        />
-      )}
+    <div className={`app-sidebar-notebook ${active ?  "active" : "inactive"}`} >
+        <img src={Arrow} alt="" className={`${active ?  "active" : "inactive"} arrow`} />
+          {!toggle ? (
+            <label
+              onClick={() => {
+                      getNotes(notebook.id); 
+                      handleActive();
+                    }}
+              onDoubleClick={() => setToggle(!toggle)}
+              htmlFor="notebook title"
+            >{notebook.title}</label>
+            ) : (
+            <input
+              id="notebook-title"
+              type="text"
+              name="text"
+              autoFocus
+              autoCapitalize
+              onChange={handleChange}
+              onBlur={handleFocusChange}
+              onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === "Escape") {
+                onNotebookTitleChange();
+              }
+              }}
+              value={
+              notebook.title !== "New notebook" ? text || notebook.title : text
+              }
+            />
+        )}
       <button onClick={handleAddNote}>Add Note</button>
       <button onClick={handleDeleteNotebook}>Delete Notebook</button>
       <ul>
         {notes.length !== 0 &&
           notes.map((note) => (
-            <Notes
+            <Notes className="my_notes"
               key={note.id}
               note={note}
               activeNote={activeNote}

@@ -48,8 +48,6 @@ button:hover {
   font-family: inherit;
 }
 
-What is the difference with all of thatanyways
-
 .logo {
   font-size: 20px;
   font-weight: bold;
@@ -328,13 +326,18 @@ textarea {
     z-index: 0;
     margin: 17px 1em 0 2em;
 }
-.item input + .arrow {
+
+.inactive .arrow {
     transform: rotate(-90deg);
-    transition: 0.1s;
+    transition: 0.3s;
 }
-.item input:checked + .arrow {
+.active .arrow {
     transform: rotate(0deg);
-    transition: 0.1s;
+    transition: 0.3s;
+}
+
+.app-sidebar-notebook.inactive > ul {
+  display: none
 }
 
 
@@ -387,6 +390,8 @@ label {
     color: #90A4AE;
     font-weight: 100;
 }
+
+
 
 
 /* Max style for book title and update */
