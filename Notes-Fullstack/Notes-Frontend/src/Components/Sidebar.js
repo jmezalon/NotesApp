@@ -9,7 +9,6 @@ function Sidebar({
   setNotebooks,
   onDeleteNotebook,
   user,
-  onSavedNote,
 }) {
   const [currentID, setCurrentID] = useState("");
 
@@ -20,7 +19,7 @@ function Sidebar({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: "Add title",
+        title: "New notebook",
         user_id: user.id,
       }),
     })
@@ -58,7 +57,6 @@ function Sidebar({
                 activeNote={activeNote}
                 setActiveNote={setActiveNote}
                 onUpdateTitle={onUpdateTitle}
-                // onSavedNote={onSavedNote}
               />
             ))}
         </div>

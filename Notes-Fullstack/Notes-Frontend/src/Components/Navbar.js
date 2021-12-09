@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Navbar = ({
-  user,
-  setNotebooks,
-  setLoginFormData,
-  setUser,
-  setNotes,
-}) => {
+const Navbar = ({ user, setNotebooks, setLoginFormData, setUser }) => {
   function handleLogout() {
     setUser("");
     setNotebooks([]);
@@ -17,10 +11,7 @@ const Navbar = ({
       <span className="logo">Notes App</span>
       {user ? (
         <ul className="list">
-          <li className="listItem">
-            <img src="" alt="" className="avatar" />
-          </li>
-          <li className="listItem, username">Username</li>
+          <li className="listItem, username">{user.name}</li>
           <li onClick={handleLogout} className="listItem">
             Logout
           </li>
