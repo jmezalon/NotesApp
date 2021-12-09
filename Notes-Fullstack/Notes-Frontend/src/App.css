@@ -172,6 +172,14 @@ button:hover {
   background-color: black;
 }
 
+.login_err.inactive{
+  display: none;
+}
+
+.login_err {
+  color: crimson
+}
+
 /* Right Side Styles */
 
 input {

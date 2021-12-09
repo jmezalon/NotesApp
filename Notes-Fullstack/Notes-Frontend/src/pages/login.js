@@ -8,8 +8,12 @@ const Login = ({
   getNotebooks,
   onLoginSubmit,
   setLoginFormData,
+  throwErr,
+  setThrowErr
 }) => {
   const [newUser, setnewUser] = useState(false);
+  
+
   const onSignupSubmit = (e) => {
     e.preventDefault();
     fetch("http://localhost:9292/users/signup", {
@@ -97,10 +101,14 @@ const Login = ({
                   value={loginFormData.password}
                   onChange={handleLoginChange}
                 />
+                <p className={`login_err ${throwErr ? "active" : "inactive"}`} >Please check credentials</p>
                 <button className="submit">Login</button>
               </form>
               <p>Don't have an account?</p>
-              <button onClick={() => setnewUser(true)}>Create account</button>
+              <button onClick={() => {
+                setnewUser(true) 
+                setThrowErr(false)
+              }}>Create account</button>
             </>
           )}
         </div>

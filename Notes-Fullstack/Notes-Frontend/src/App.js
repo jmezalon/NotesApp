@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 function App() {
   const [user, setUser] = useState("");
   const [notebooks, setNotebooks] = useState([]);
+  const [throwErr, setThrowErr] = useState(false);
   const [loginFormData, setLoginFormData] = useState({
     name: "",
     email: "",
@@ -66,10 +67,10 @@ function App() {
             setUser(user);
             setLoginFormData({ name: "", email: "", password: "" });
           } else {
-            console.log("You aint valid");
+            setThrowErr(true)
           }
         } else {
-          console.log("We got em");
+          setThrowErr(true);
         }
       });
   }
@@ -86,6 +87,7 @@ function App() {
           setNotebooks={setNotebooks}
           setUser={setUser}
           setLoginFormData={setLoginFormData}
+          setThrowErr={setThrowErr}
         />
         <Routes>
           <Route
@@ -101,6 +103,8 @@ function App() {
                   setUser={setUser}
                   getNotebooks={getNotebooks}
                   setLoginFormData={setLoginFormData}
+                  throwErr={throwErr}
+                  setThrowErr={setThrowErr}
                 />
               )
             }
