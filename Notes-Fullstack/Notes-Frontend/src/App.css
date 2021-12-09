@@ -40,13 +40,15 @@ button:hover {
 
 .navbar {
   height: 50px;
-  background-color: black;
+  background-color: rgb(99,178,242);
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: inherit;
 }
+
+What is the difference with all of thatanyways
 
 .logo {
   font-size: 20px;

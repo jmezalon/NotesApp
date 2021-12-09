@@ -12,6 +12,8 @@ const Notebook = ({
   onDeleteNotebook,
 }) => {
   const [notes, setNotes] = useState([]);
+  const [toggle, setToggle] = useState(true);
+  const [text, setText] = useState("notebook.name");
 
   function handleAddNote() {
     fetch(`http://localhost:9292/${currentID}/notes`, {
@@ -27,13 +29,14 @@ const Notebook = ({
     })
       .then((r) => r.json())
       .then((note) => {
-        setActiveNote(note);
         setNotes([note, ...notes]);
+        setActiveNote(note.id);
       });
   }
 
   const onDeleteNote = (idToDelete) => {
     setNotes(notes.filter((note) => note.id !== idToDelete));
+    setActiveNote(false)
   };
 
   const onUpdateNote = (updatedNote) => {
@@ -67,6 +70,25 @@ const Notebook = ({
     }).then(() => onDeleteNotebook(notebook.id));
   }
 
+  const handleDoubleClick = () => {
+    // fetch(`http://localhost:9292/notebooks/${activeNote}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ title: "Im changed" }),
+    // });
+    console.log(notebook.id)
+  }
+
+  function toggleInput() {
+    setToggle(false);
+  }
+
+  function handleChange(event) {
+    setText(event.target.value);
+  }
+
   // function onDeleteNote(obj) {
   //   const updatedNotes = notes.filter((note) => note.id !== obj.id);
   //   setNotes(updatedNotes);
@@ -84,7 +106,14 @@ const Notebook = ({
     >
       <input type="checkbox" id="A" />
       <img src={Arrow} alt="" className="arrow" />
-      <label htmlFor="A">{notebook.title}</label>
+      {toggle ? (
+        <p onDoubleClick={toggleInput}>{text}</p>
+      ) : (
+        <input type="text" value={text} onChange={handleChange} />
+      )}
+      <label onDoubleClick={handleDoubleClick} htmlFor="A">
+        {notebook.title}
+      </label>
       <button onClick={handleAddNote}>Add Note</button>
       <button onClick={handleDeleteNotebook}>Delete Notebook</button>
       <ul>

@@ -9,8 +9,8 @@ function Main({ activeNote }) {
   const [content, setContent] = useState("Hi");
 
   const handleSave = () => {
-    fetch(`http://localhost:9292/notes/$activeNote`, {
-      method: "Patch",
+    fetch(`http://localhost:9292/notes/${activeNote}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
