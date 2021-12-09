@@ -2,6 +2,7 @@ import { useState } from "react";
 import Notes from "./Notes";
 import Arrow from "../img/arrow.png";
 
+
 const Notebook = ({
   notebook,
   setCurrentID,
@@ -105,42 +106,54 @@ const Notebook = ({
   }
 
   return (
-    <div className={`app-sidebar-notebook ${active ?  "active" : "inactive"}`} >
-        <img src={Arrow} alt="" className={`${active ?  "active" : "inactive"} arrow`} />
-          {!toggle ? (
-            <label
-              onClick={() => {
-                      getNotes(notebook.id); 
-                      handleActive();
-                    }}
-              onDoubleClick={() => setToggle(!toggle)}
-              htmlFor="notebook title"
-            >{notebook.title}</label>
-            ) : (
-            <input
-              id="notebook-title"
-              type="text"
-              name="text"
-              autoFocus
-              autoCapitalize
-              onChange={handleChange}
-              onBlur={handleFocusChange}
-              onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === "Escape") {
-                onNotebookTitleChange();
-              }
-              }}
-              value={
-              notebook.title !== "New notebook" ? text || notebook.title : text
-              }
-            />
-        )}
-      <button onClick={handleAddNote}>Add Note</button>
-      <button onClick={handleDeleteNotebook}>Delete Notebook</button>
+    <div className={`app-sidebar-notebook ${active ? "active" : "inactive"}`}>
+      <img
+        src={Arrow}
+        alt=""
+        className={`${active ? "active" : "inactive"} arrow`}
+      />
+      {!toggle ? (
+        <label
+          onClick={() => {
+            getNotes(notebook.id);
+            handleActive();
+          }}
+          onDoubleClick={() => setToggle(!toggle)}
+          htmlFor="notebook title"
+        >
+          <div className="app_sidebar_notebook--buttons">
+            {notebook.title}
+            <button className="bye_notebook" onClick={handleDeleteNotebook}>
+              Delete Notebook
+            </button>
+          </div>
+        </label>
+      ) : (
+        <input
+          id="notebook-title"
+          type="text"
+          name="text"
+          maxLength={20}
+          autoFocus
+          autoCapitalize
+          onChange={handleChange}
+          onBlur={handleFocusChange}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === "Escape") {
+              onNotebookTitleChange();
+            }
+          }}
+          value={
+            notebook.title !== "New notebook" ? text || notebook.title : text
+          }
+        />
+      )}
+      {/* <hr /> */}
       <ul>
         {notes.length !== 0 &&
           notes.map((note) => (
-            <Notes className="my_notes"
+            <Notes
+              className="my_notes"
               key={note.id}
               note={note}
               activeNote={activeNote}
@@ -148,6 +161,12 @@ const Notebook = ({
               onDeleteNote={onDeleteNote}
             />
           ))}
+        <button
+          className={`${active ? "active" : "inactive"} add_button`}
+          onClick={handleAddNote}
+        >
+          Add Note
+        </button>
       </ul>
     </div>
   );

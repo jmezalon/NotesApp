@@ -207,6 +207,8 @@ input {
   display: flex;
   justify-content: space-between;
   padding: 25px;
+  background-color: white;
+  border-bottom: 1px solid #CFD8DC;
 }
 .app-sidebar-header h1 {
   margin: 0;
@@ -224,6 +226,9 @@ input {
   justify-content: space-between;
 }
 .app-sidebar-note button {
+  color: grey;
+}
+.app-sidebar-note button:hover {
   color: crimson;
 }
 .app-sidebar-note p {
@@ -241,6 +246,24 @@ input {
 .app-sidebar-note.active small {
   background: #08c;
   color: white;
+}
+
+.app_sidebar_notebook--buttons {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: black;
+  /* border-bottom: solid 0.5px lightgrey; */
+  /* border-top: solid 0.5px lightgrey; */
+  border-bottom: 1px solid #CFD8DC;
+}
+
+.bye_notebook {
+  color: crimson;
+}
+
+.inactive .add_button {
+  display: none;
 }
 
 /* NOTE EDITOR/PREVIEW (MAIN) STYLES */
@@ -305,9 +328,6 @@ textarea {
 
 /* NEW NAVBAR STYLES */
 
-.nav input[type="checkbox"] {
-    opacity: 0;
-}
 .item input:checked ~ ul {
     display: block;
 }
@@ -357,7 +377,9 @@ label {
     width: 100%;
     background-color: white;
     overflow-x: hidden;
-    border-bottom: 1px solid #CFD8DC;
+    height: calc(100% - 136px);
+    overflow: scroll;
+    /* border-bottom: 1px solid #CFD8DC; */
 }
 
 #nav-icon {

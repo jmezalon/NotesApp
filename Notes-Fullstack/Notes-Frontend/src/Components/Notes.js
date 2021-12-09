@@ -1,3 +1,5 @@
+import { FaTrash } from "react-icons/fa";
+
 const Notes = ({ note, onDeleteNote, activeNote, setActiveNote }) => {
   function handleDeleteNote() {
     fetch(`http://localhost:9292/notes/${note.id}`, {
@@ -12,7 +14,9 @@ const Notes = ({ note, onDeleteNote, activeNote, setActiveNote }) => {
     >
       <div className="sidebar-note-title">
         <strong>{note.title}</strong>
-        <button onClick={handleDeleteNote}>Delete</button>
+        <button onClick={handleDeleteNote}>
+          <FaTrash />
+        </button>
       </div>
       {/* <p>{note.content && note.content.substr(0, 40) + "..."}</p>
       <small classname="note-meta">
