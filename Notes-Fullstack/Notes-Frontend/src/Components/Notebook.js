@@ -8,12 +8,12 @@ const Notebook = ({
   currentID,
   activeNote,
   setActiveNote,
-
+  onUpdateTitle,
   onDeleteNotebook,
 }) => {
   const [notes, setNotes] = useState([]);
-  const [toggle, setToggle] = useState(true);
-  const [text, setText] = useState("notebook.name");
+  const [toggle, setToggle] = useState(false);
+  const [text, setText] = useState("");
 
   function handleAddNote() {
     fetch(`http://localhost:9292/${currentID}/notes`, {
@@ -36,18 +36,18 @@ const Notebook = ({
 
   const onDeleteNote = (idToDelete) => {
     setNotes(notes.filter((note) => note.id !== idToDelete));
-    setActiveNote(false)
+    setActiveNote(false);
   };
 
-  const onUpdateNote = (updatedNote) => {
-    const updatedNotesArray = notes.map((note) => {
-      if (note.id === activeNote) {
-        return updatedNote;
-      }
-      return note;
-    });
-    setNotes(updatedNotesArray);
-  };
+  // const onSavedNote = (updatedNote) => {
+  //   const updatedNotesArray = notes.map((note) => {
+  //     if (note.id === activeNote) {
+  //       return updatedNote;
+  //     }
+  //     return note;
+  //   });
+  //   setNotes(updatedNotesArray);
+  // };
 
   // const sortedNotes = notes.sort((a, b) => b.last_modified - a.last_modified);
 
@@ -70,29 +70,30 @@ const Notebook = ({
     }).then(() => onDeleteNotebook(notebook.id));
   }
 
-  // const handleDoubleClick = () => {
-  //   // fetch(`http://localhost:9292/notebooks/${activeNote}`, {
-  //   //   method: "PATCH",
-  //   //   headers: {
-  //   //     "Content-Type": "application/json",
-  //   //   },
-  //   //   body: JSON.stringify({ title: "Im changed" }),
-  //   // });
-  //   console.log(notebook.id)
-  // }
-
-  function toggleInput() {
-    setToggle(false);
-  }
+  const onNotebookTitleChange = () => {
+    text &&
+      fetch(`http://localhost:9292/notebooks/${notebook.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: text, user_id: notebook.id }),
+      })
+        .then((r) => r.json())
+        .then((updateNotebook) => {
+          onUpdateTitle(updateNotebook);
+          setText("");
+          setToggle(false);
+        });
+  };
 
   function handleChange(event) {
     setText(event.target.value);
   }
 
-  // function onDeleteNote(obj) {
-  //   const updatedNotes = notes.filter((note) => note.id !== obj.id);
-  //   setNotes(updatedNotes);
-  // }
+  function handleFocusChange() {
+    text ? onNotebookTitleChange() : setToggle(false);
+  }
 
   return (
     <div
@@ -106,27 +107,39 @@ const Notebook = ({
     >
       <input type="checkbox" id="A" />
       <img src={Arrow} alt="" className="arrow" />
-      {toggle ? (
-        <p onDoubleClick={toggleInput}>{text}</p>
+      {!toggle ? (
+        <label
+          onDoubleClick={() => setToggle(!toggle)}
+          htmlFor="notebook title"
+        >
+          {notebook.title}
+        </label>
       ) : (
-        <input type="text" value={text} onChange={handleChange} onKeyDown={(event) => {
-          if (event.key === 'Enter' || event.key === 'Escape') {
-          setToggle(true)
-          event.preventDefault()
-          event.stopPropagation()
-    }
-  }}
-/>
+        <input
+          id="notebook-title"
+          type="text"
+          name="text"
+          autoFocus
+          autoCapitalize
+          onChange={handleChange}
+          onBlur={handleFocusChange}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === "Escape") {
+              console.log("key press");
+              onNotebookTitleChange();
+              event.stopPropagation();
+            }
+          }}
+          value={text || notebook.title}
+        />
       )}
-      <label htmlFor="A">
-        {notebook.title}
-      </label>
       <button onClick={handleAddNote}>Add Note</button>
       <button onClick={handleDeleteNotebook}>Delete Notebook</button>
       <ul>
         {notes.length !== 0 &&
           notes.map((note) => (
             <Notes
+              key={note.id}
               note={note}
               activeNote={activeNote}
               setActiveNote={setActiveNote}

@@ -387,3 +387,12 @@ label {
     color: #90A4AE;
     font-weight: 100;
 }
+
+
+/* Max style for book title and update */
+#notebook-title{
+  /* border: none; */
+  text-align: left;
+  color: gray;
+  /* font-weight: bold; */
+}
