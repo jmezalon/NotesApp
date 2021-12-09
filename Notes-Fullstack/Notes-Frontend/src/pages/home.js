@@ -4,6 +4,7 @@ import Sidebar from "../Components/Sidebar";
 
 const Home = ({ notebooks, onDeleteNotebook, setNotebooks, user }) => {
   const [activeNote, setActiveNote] = useState(false);
+  const [forRender, setForRender] = useState(1)
 
   const onAddNotebook = (newNotebook) => {
     setNotebooks([newNotebook, ...notebooks]);
@@ -18,8 +19,9 @@ const Home = ({ notebooks, onDeleteNotebook, setNotebooks, user }) => {
         setActiveNote={setActiveNote}
         onAddNotebook={onAddNotebook}
         onDeleteNotebook={onDeleteNotebook}
+        forRender={forRender}
       />
-      <Main activeNote={activeNote} />
+      <Main activeNote={activeNote} setForRender={setForRender} forRender={forRender} />
     </div>
   );
 };

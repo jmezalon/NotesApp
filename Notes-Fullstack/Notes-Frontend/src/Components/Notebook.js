@@ -9,11 +9,13 @@ const Notebook = ({
   setActiveNote,
   onUpdateTitle,
   onDeleteNotebook,
+  forRender
 }) => {
   const [notes, setNotes] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [text, setText] = useState("");
   const [active, setActive] = useState(false)
+  const [doRender, setDoRender] = useState(1);
 
   function handleAddNote() {
     fetch(`http://localhost:9292/${notebook.id}/notes`, {
@@ -46,6 +48,10 @@ const Notebook = ({
   // const setActiveNotebook = () => {
   //   getNotes(notebook.id);
   // };
+  if (doRender !== forRender) {
+    setDoRender(forRender);
+    getNotes(notebook.id)
+  }
 
   function getNotes(id) {
     fetch(`http://localhost:9292/${id}/notes`)
