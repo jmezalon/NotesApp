@@ -9,7 +9,9 @@ function Sidebar({
   setNotebooks,
   onDeleteNotebook,
   user,
+  forRender
 }) {
+
   function handleAddNotebook() {
     fetch(`http://localhost:9292/${user.id}/notebooks`, {
       method: "POST",
@@ -24,6 +26,7 @@ function Sidebar({
       .then((r) => r.json())
       .then((notebook) => onAddNotebook(notebook));
   }
+
 
   function onUpdateTitle(updateTitle) {
     const updatedNotebook = notebooks.map((title) => {
@@ -53,6 +56,7 @@ function Sidebar({
                 activeNote={activeNote}
                 setActiveNote={setActiveNote}
                 onUpdateTitle={onUpdateTitle}
+                forRender={forRender}
               />
             ))}
         </div>

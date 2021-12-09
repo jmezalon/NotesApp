@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-function Main({ activeNote }) {
+
+function Main({ activeNote, setForRender, forRender }) {
+
   const [title, setTitle] = useState("Untitled");
   const [content, setContent] = useState("Hi");
 
@@ -11,7 +13,8 @@ function Main({ activeNote }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ title: title, content: content }),
-    });
+    })
+    setForRender(forRender += 1 )
   };
 
   useEffect(() => {
@@ -35,6 +38,7 @@ function Main({ activeNote }) {
           id="title"
           value={title}
           onBlur={handleSave}
+          maxLength={18}
           onChange={(e) => setTitle(e.target.value)}
           autoFocus
         />
