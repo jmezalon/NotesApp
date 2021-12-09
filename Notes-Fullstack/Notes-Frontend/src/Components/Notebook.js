@@ -2,6 +2,7 @@ import { useState } from "react";
 import Notes from "./Notes";
 import Arrow from "../img/arrow.png";
 
+
 const Notebook = ({
   notebook,
   setCurrentID,
@@ -14,6 +15,7 @@ const Notebook = ({
   const [notes, setNotes] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [text, setText] = useState("");
+  const [active, setActive] = useState(false)
 
   function handleAddNote() {
     fetch(`http://localhost:9292/${currentID}/notes`, {
@@ -99,30 +101,39 @@ const Notebook = ({
     }
   }
 
+  const handleActive = () => {
+    setActive(!active)
+  }
+
   return (
-    <div
-      className={`app-sidebar-notebook ${
-        notebook.id === currentID && "active"
-      }`}
-      onClick={() => {
-        getNotes(notebook.id);
-        setCurrentID(notebook.id);
-      }}
-    >
-      <input type="checkbox" id="A" />
-      <img src={Arrow} alt="" className="arrow" />
+    <div className={`app-sidebar-notebook ${active ? "active" : "inactive"}`}>
+      <img
+        src={Arrow}
+        alt=""
+        className={`${active ? "active" : "inactive"} arrow`}
+      />
       {!toggle ? (
         <label
+          onClick={() => {
+            getNotes(notebook.id);
+            handleActive();
+          }}
           onDoubleClick={() => setToggle(!toggle)}
           htmlFor="notebook title"
         >
-          {notebook.title}
+          <div className="app_sidebar_notebook--buttons">
+            {notebook.title}
+            <button className="bye_notebook" onClick={handleDeleteNotebook}>
+              Delete Notebook
+            </button>
+          </div>
         </label>
       ) : (
         <input
           id="notebook-title"
           type="text"
           name="text"
+          maxLength={20}
           autoFocus
           autoCapitalize
           onChange={handleChange}
@@ -130,7 +141,6 @@ const Notebook = ({
           onKeyDown={(event) => {
             if (event.key === "Enter" || event.key === "Escape") {
               onNotebookTitleChange();
-              // event.stopPropagation();
             }
           }}
           value={
@@ -138,12 +148,12 @@ const Notebook = ({
           }
         />
       )}
-      <button onClick={handleAddNote}>Add Note</button>
-      <button onClick={handleDeleteNotebook}>Delete Notebook</button>
+      {/* <hr /> */}
       <ul>
         {notes.length !== 0 &&
           notes.map((note) => (
             <Notes
+              className="my_notes"
               key={note.id}
               note={note}
               activeNote={activeNote}
@@ -151,6 +161,12 @@ const Notebook = ({
               onDeleteNote={onDeleteNote}
             />
           ))}
+        <button
+          className={`${active ? "active" : "inactive"} add_button`}
+          onClick={handleAddNote}
+        >
+          Add Note
+        </button>
       </ul>
     </div>
   );
