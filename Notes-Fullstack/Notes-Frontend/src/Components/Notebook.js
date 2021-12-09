@@ -70,16 +70,16 @@ const Notebook = ({
     }).then(() => onDeleteNotebook(notebook.id));
   }
 
-  const handleDoubleClick = () => {
-    // fetch(`http://localhost:9292/notebooks/${activeNote}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ title: "Im changed" }),
-    // });
-    console.log(notebook.id)
-  }
+  // const handleDoubleClick = () => {
+  //   // fetch(`http://localhost:9292/notebooks/${activeNote}`, {
+  //   //   method: "PATCH",
+  //   //   headers: {
+  //   //     "Content-Type": "application/json",
+  //   //   },
+  //   //   body: JSON.stringify({ title: "Im changed" }),
+  //   // });
+  //   console.log(notebook.id)
+  // }
 
   function toggleInput() {
     setToggle(false);
@@ -109,9 +109,16 @@ const Notebook = ({
       {toggle ? (
         <p onDoubleClick={toggleInput}>{text}</p>
       ) : (
-        <input type="text" value={text} onChange={handleChange} />
+        <input type="text" value={text} onChange={handleChange} onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === 'Escape') {
+          setToggle(true)
+          event.preventDefault()
+          event.stopPropagation()
+    }
+  }}
+/>
       )}
-      <label onDoubleClick={handleDoubleClick} htmlFor="A">
+      <label htmlFor="A">
         {notebook.title}
       </label>
       <button onClick={handleAddNote}>Add Note</button>
