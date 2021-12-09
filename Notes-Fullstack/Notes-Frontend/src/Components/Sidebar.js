@@ -6,8 +6,10 @@ function Sidebar({
   notebooks,
   activeNote,
   setActiveNote,
+  setNotebooks,
   onDeleteNotebook,
   user,
+  onSavedNote,
 }) {
   const [currentID, setCurrentID] = useState("");
 
@@ -24,6 +26,17 @@ function Sidebar({
     })
       .then((r) => r.json())
       .then((notebook) => onAddNotebook(notebook));
+  }
+
+  function onUpdateTitle(updateTitle) {
+    const updatedNotebook = notebooks.map((title) => {
+      if (title.id === updateTitle.id) {
+        return updateTitle;
+      } else {
+        return title;
+      }
+    });
+    setNotebooks(updatedNotebook);
   }
 
   return (
@@ -44,6 +57,8 @@ function Sidebar({
                 currentID={currentID}
                 activeNote={activeNote}
                 setActiveNote={setActiveNote}
+                onUpdateTitle={onUpdateTitle}
+                // onSavedNote={onSavedNote}
               />
             ))}
         </div>

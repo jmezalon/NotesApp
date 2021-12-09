@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function Main({ activeNote }) {
-  const [workingNote, setWorkingNote] = useState(false);
+function Main({ activeNote, onSavedNote }) {
+  // const [workingNote, setWorkingNote] = useState(false);
   const [title, setTitle] = useState("Untitled");
   const [content, setContent] = useState("Hi");
 
@@ -15,14 +15,15 @@ function Main({ activeNote }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ title: title, content: content }),
-    });
+    }).then((r) => r.json());
+    // .then((note) => onSavedNote(note));
   };
 
   useEffect(() => {
     fetch(`http://localhost:9292/notes/${activeNote}`)
       .then((r) => r.json())
       .then((note) => {
-        setWorkingNote(note);
+        // setWorkingNote(note);
         setTitle(note.title);
         setContent(note.content);
       });
@@ -39,6 +40,7 @@ function Main({ activeNote }) {
           type="text"
           id="title"
           value={title}
+          onBlur={title !== "Untitled" && handleSave}
           onChange={(e) => setTitle(e.target.value)}
           autoFocus
         />
@@ -46,10 +48,10 @@ function Main({ activeNote }) {
           id="content"
           placeholder="Write you notes here..."
           value={content}
+          onBlur={content !== "Hi" && handleSave}
           onChange={(e) => setContent(e.target.value)}
         />
       </div>
-      <button onClick={handleSave}>SAVE</button>
     </div>
   );
 }
