@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
 
 function Main({
   activeNote,
@@ -7,12 +6,13 @@ function Main({
   hideSidebar,
   setForRender,
   forRender,
+  pro_url,
 }) {
   const [title, setTitle] = useState("Untitled");
   const [content, setContent] = useState("Hi");
 
   const handleSave = () => {
-    fetch(`http://localhost:9292/notes/${activeNote}`, {
+    fetch(`${pro_url}/notes/${activeNote}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -23,13 +23,13 @@ function Main({
   };
 
   useEffect(() => {
-    fetch(`http://localhost:9292/notes/${activeNote}`)
+    fetch(`${pro_url}/notes/${activeNote}`)
       .then((r) => r.json())
       .then((note) => {
         setTitle(note.title);
         setContent(note.content);
       });
-  }, [activeNote]);
+  }, [activeNote, pro_url]);
 
   if (!activeNote) {
     return <div className="no-active-note">No Note Selected</div>;
@@ -48,6 +48,7 @@ function Main({
         <input
           type="text"
           id="title"
+          placeholder="add title"
           value={title}
           onBlur={handleSave}
           maxLength={18}

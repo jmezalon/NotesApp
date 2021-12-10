@@ -10,6 +10,7 @@ const Notebook = ({
   onDeleteNotebook,
   forRender,
   setHideSidebar,
+  pro_url,
 }) => {
   const [notes, setNotes] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -18,13 +19,13 @@ const Notebook = ({
   const [doRender, setDoRender] = useState(1);
 
   function handleAddNote() {
-    fetch(`http://localhost:9292/${notebook.id}/notes`, {
+    fetch(`${pro_url}/${notebook.id}/notes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: "Add title",
+        title: "",
         content: "",
         notebook_id: notebook.id,
       }),
@@ -52,7 +53,7 @@ const Notebook = ({
   }
 
   function getNotes(id) {
-    fetch(`http://localhost:9292/${id}/notes`)
+    fetch(`${pro_url}/${id}/notes`)
       .then((r) => r.json())
       .catch((e) => console.log(e))
       .then((notes) => {
@@ -61,7 +62,7 @@ const Notebook = ({
   }
 
   function handleDeleteNotebook() {
-    fetch(`http://localhost:9292/notebooks/${notebook.id}`, {
+    fetch(`${pro_url}/notebooks/${notebook.id}`, {
       method: "DELETE",
     }).then(() => onDeleteNotebook(notebook.id));
   }
@@ -74,7 +75,7 @@ const Notebook = ({
 
   const onNotebookTitleChange = () => {
     validatteTitle(text) &&
-      fetch(`http://localhost:9292/notebooks/${notebook.id}`, {
+      fetch(`${pro_url}/notebooks/${notebook.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -158,6 +159,7 @@ const Notebook = ({
               setActiveNote={setActiveNote}
               onDeleteNote={onDeleteNote}
               setHideSidebar={setHideSidebar}
+              pro_url={pro_url}
             />
           ))}
         <button

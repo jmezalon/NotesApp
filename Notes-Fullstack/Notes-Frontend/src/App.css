@@ -475,9 +475,29 @@ label {
     width: 100%;
   }
 
+  .app-main-note-edit{
+    padding: 25px 20px 25px 14px;
+    height: 100%;
+  }
+
+  .app-main-note-edit input, textarea {
+    width: 86vw;
+  }
+
+  body, .App{
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .wrapper {
+    width: 96%;
+    height: 98%;
+  }
+
   .app-main {
-    margin-left: 7%;
+    margin: auto;
     display: flex;
+    width: 95%;
   }
 
   .temp-sidebar {
@@ -486,9 +506,10 @@ label {
 
   .back-button {
     display: block;
-    margin-top: 32%;
+    margin: 9% 0;
     color: #08c;
-    font-size: x-large;
+    font-size: 2rem;
+    padding: 0px;
   }
 
   .hide-back-button {

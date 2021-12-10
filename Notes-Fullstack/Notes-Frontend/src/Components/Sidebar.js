@@ -11,9 +11,10 @@ function Sidebar({
   forRender,
   setHideSidebar,
   hideSidebar,
+  pro_url,
 }) {
   function handleAddNotebook() {
-    fetch(`http://localhost:9292/${user.id}/notebooks`, {
+    fetch(`${pro_url}/${user.id}/notebooks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,6 +58,7 @@ function Sidebar({
                 setActiveNote={setActiveNote}
                 onUpdateTitle={onUpdateTitle}
                 forRender={forRender}
+                pro_url={pro_url}
               />
             ))}
         </div>
