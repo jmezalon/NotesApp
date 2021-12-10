@@ -9,13 +9,13 @@ const Login = ({
   onLoginSubmit,
   setLoginFormData,
   throwErr,
-  setThrowErr
+  setThrowErr,
 }) => {
   const [newUser, setnewUser] = useState(false);
-  
 
   const onSignupSubmit = (e) => {
     e.preventDefault();
+    setThrowErr(false);
     fetch("http://localhost:9292/users/signup", {
       method: "POST",
       headers: {
@@ -28,10 +28,20 @@ const Login = ({
       }),
     })
       .then((r) => r.json())
+      .catch(() => {
+        setThrowErr(true);
+      })
       .then((user) => {
-        setUser(user);
-        getNotebooks(user.id);
-        setLoginFormData({ name: "", email: "", password: "" });
+        if (user) {
+          // if (throwErr) {
+          setThrowErr(false);
+          setUser(user);
+          getNotebooks(user.id);
+          setLoginFormData({ name: "", email: "", password: "" });
+          // }
+        } else {
+          setThrowErr(true);
+        }
       });
   };
   return (
@@ -71,6 +81,9 @@ const Login = ({
                   value={loginFormData.password}
                   onChange={handleLoginChange}
                 />
+                <p className={`login_err ${throwErr ? "active" : "inactive"}`}>
+                  E-mail already exist
+                </p>
                 <input
                   name="email"
                   type="text"
@@ -101,14 +114,20 @@ const Login = ({
                   value={loginFormData.password}
                   onChange={handleLoginChange}
                 />
-                <p className={`login_err ${throwErr ? "active" : "inactive"}`} >Please check credentials</p>
+                <p className={`login_err ${throwErr ? "active" : "inactive"}`}>
+                  Please check credentials
+                </p>
                 <button className="submit">Login</button>
               </form>
               <p>Don't have an account?</p>
-              <button onClick={() => {
-                setnewUser(true) 
-                setThrowErr(false)
-              }}>Create account</button>
+              <button
+                onClick={() => {
+                  setnewUser(true);
+                  setThrowErr(false);
+                }}
+              >
+                Create account
+              </button>
             </>
           )}
         </div>

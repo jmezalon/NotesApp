@@ -2,19 +2,18 @@ import { useState } from "react";
 import Notes from "./Notes";
 import Arrow from "../img/arrow.png";
 
-
 const Notebook = ({
   notebook,
   activeNote,
   setActiveNote,
   onUpdateTitle,
   onDeleteNotebook,
-  forRender
+  forRender,
 }) => {
   const [notes, setNotes] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [text, setText] = useState("");
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false);
   const [doRender, setDoRender] = useState(1);
 
   function handleAddNote() {
@@ -41,8 +40,6 @@ const Notebook = ({
     setActiveNote(false);
   };
 
-  
-
   // const sortedNotes = notes.sort((a, b) => b.last_modified - a.last_modified);
 
   // const setActiveNotebook = () => {
@@ -50,7 +47,7 @@ const Notebook = ({
   // };
   if (doRender !== forRender) {
     setDoRender(forRender);
-    getNotes(notebook.id)
+    getNotes(notebook.id);
   }
 
   function getNotes(id) {
@@ -68,8 +65,14 @@ const Notebook = ({
     }).then(() => onDeleteNotebook(notebook.id));
   }
 
+  function validatteTitle(input) {
+    const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+    const alphabet = alpha.map((x) => String.fromCharCode(x).toLowerCase());
+    return alphabet.includes(input[0].toLowerCase());
+  }
+
   const onNotebookTitleChange = () => {
-    text &&
+    validatteTitle(text) &&
       fetch(`http://localhost:9292/notebooks/${notebook.id}`, {
         method: "PATCH",
         headers: {
@@ -98,8 +101,8 @@ const Notebook = ({
   }
 
   const handleActive = () => {
-    setActive(!active)
-  }
+    setActive(!active);
+  };
 
   return (
     <div className={`app-sidebar-notebook ${active ? "active" : "inactive"}`}>
@@ -130,8 +133,8 @@ const Notebook = ({
           type="text"
           name="text"
           maxLength={20}
+          placeholder={notebook.title}
           autoFocus
-          autoCapitalize
           onChange={handleChange}
           onBlur={handleFocusChange}
           onKeyDown={(event) => {
@@ -140,7 +143,8 @@ const Notebook = ({
             }
           }}
           value={
-            notebook.title !== "New notebook" ? text || notebook.title : text
+            // notebook.title !== "New notebook" ? text || notebook.title : text
+            text
           }
         />
       )}
@@ -158,9 +162,7 @@ const Notebook = ({
             />
           ))}
         <button
-          className={`${
-            active ? "active" : "inactive"
-          } add_button`}
+          className={`${active ? "active" : "inactive"} add_button`}
           onClick={handleAddNote}
         >
           Create Note
