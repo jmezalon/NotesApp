@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
+import Sidebar from "./Sidebar";
 
-
-function Main({ activeNote, setForRender, forRender }) {
-
+function Main({
+  activeNote,
+  setHideSidebar,
+  hideSidebar,
+  setForRender,
+  forRender,
+}) {
   const [title, setTitle] = useState("Untitled");
   const [content, setContent] = useState("Hi");
 
@@ -13,8 +18,8 @@ function Main({ activeNote, setForRender, forRender }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ title: title, content: content }),
-    })
-    setForRender(forRender += 1 )
+    });
+    setForRender((forRender += 1));
   };
 
   useEffect(() => {
@@ -31,7 +36,14 @@ function Main({ activeNote, setForRender, forRender }) {
   }
 
   return (
-    <div className="app-main">
+    <div className={hideSidebar ? "app-main" : "hide-app-main"}>
+      <div
+        className={!hideSidebar ? "hide-back-button" : "back-button"}
+        onClick={() => setHideSidebar(false)}
+      >
+        {" "}
+        {"<"}{" "}
+      </div>
       <div className="app-main-note-edit">
         <input
           type="text"

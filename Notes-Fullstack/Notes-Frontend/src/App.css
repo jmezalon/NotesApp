@@ -211,6 +211,13 @@ input {
   font-family: inherit;
 }
 
+.temp-sidebar {
+  width: 30%;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+  font-family: inherit;
+}
+
 .app-sidebar-header {
   display: flex;
   justify-content: space-between;
@@ -283,6 +290,12 @@ input {
   width: 70%;
   height: 100vh;
 }
+
+.hide-app-main {
+  width: 70%;
+  height: 100vh;
+}
+
 .app-main-note-edit,
 .app-main-note-preview {
   height: 50vh;
@@ -308,7 +321,7 @@ textarea {
   border: 1px solid #ddd;
   margin-bottom: 20px;
   width: 100%;
-  height: calc(50vh - 130px);
+  height: calc(90vh - 130px);
   padding: 10px;
   resize: none;
   font-size: inherit;
@@ -424,6 +437,14 @@ label {
     font-weight: 100;
 }
 
+.back-button {
+  display: none;
+}
+
+.hide-back-button {
+  display: none;
+}
+
 
 
 
@@ -442,4 +463,42 @@ label {
 #title{
   border-radius: 5px;
   box-shadow: 5px 2px 10px -5px rgba(66,66,66,1);
+}
+
+/* responsive css */
+
+@media screen and (max-width: 800px) {
+  .left-side, .center {
+    display: none;
+  }
+  .app-sidebar {
+    width: 100%;
+  }
+
+  .app-main {
+    margin-left: 7%;
+    display: flex;
+  }
+
+  .temp-sidebar {
+    display: none;
+  }
+
+  .back-button {
+    display: block;
+    margin-top: 32%;
+    color: #08c;
+    font-size: x-large;
+  }
+
+  .hide-back-button {
+    display: none;
+  }
+
+  .hide-app-main {
+    display: none;
+  }
+  .no-active-note {
+    display: none;
+  }
 }

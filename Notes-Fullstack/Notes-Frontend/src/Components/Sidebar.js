@@ -1,5 +1,4 @@
 import Notebook from "./Notebook";
-import { useState } from "react";
 
 function Sidebar({
   onAddNotebook,
@@ -9,9 +8,10 @@ function Sidebar({
   setNotebooks,
   onDeleteNotebook,
   user,
-  forRender
+  forRender,
+  setHideSidebar,
+  hideSidebar,
 }) {
-
   function handleAddNotebook() {
     fetch(`http://localhost:9292/${user.id}/notebooks`, {
       method: "POST",
@@ -27,7 +27,6 @@ function Sidebar({
       .then((notebook) => onAddNotebook(notebook));
   }
 
-
   function onUpdateTitle(updateTitle) {
     const updatedNotebook = notebooks.map((title) => {
       if (title.id === updateTitle.id) {
@@ -40,7 +39,7 @@ function Sidebar({
   }
 
   return (
-    <div className="app-sidebar">
+    <div className={hideSidebar && activeNote ? "temp-sidebar" : "app-sidebar"}>
       <div className="app-sidebar-header">
         <h1>Your Notes</h1>
         <button onClick={handleAddNotebook}>Add Notebook</button>
@@ -53,6 +52,7 @@ function Sidebar({
                 key={notebook.id}
                 onDeleteNotebook={onDeleteNotebook}
                 notebook={notebook}
+                setHideSidebar={setHideSidebar}
                 activeNote={activeNote}
                 setActiveNote={setActiveNote}
                 onUpdateTitle={onUpdateTitle}
