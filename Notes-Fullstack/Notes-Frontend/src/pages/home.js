@@ -2,7 +2,7 @@ import { useState } from "react";
 import Main from "../Components/Main";
 import Sidebar from "../Components/Sidebar";
 
-const Home = ({ notebooks, onDeleteNotebook, setNotebooks, user }) => {
+const Home = ({ notebooks, pro_url, onDeleteNotebook, setNotebooks, user }) => {
   const [activeNote, setActiveNote] = useState(false);
   const [forRender, setForRender] = useState(1);
 
@@ -23,6 +23,7 @@ const Home = ({ notebooks, onDeleteNotebook, setNotebooks, user }) => {
         onAddNotebook={onAddNotebook}
         onDeleteNotebook={onDeleteNotebook}
         forRender={forRender}
+        pro_url={pro_url}
       />
       <Main
         activeNote={activeNote}
@@ -30,6 +31,7 @@ const Home = ({ notebooks, onDeleteNotebook, setNotebooks, user }) => {
         forRender={forRender}
         setHideSidebar={setHideSidebar}
         hideSidebar={hideSidebar}
+        pro_url={pro_url}
       />
     </div>
   );

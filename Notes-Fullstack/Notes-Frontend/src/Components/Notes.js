@@ -6,9 +6,10 @@ const Notes = ({
   activeNote,
   setHideSidebar,
   setActiveNote,
+  pro_url,
 }) => {
   function handleDeleteNote() {
-    fetch(`http://localhost:9292/notes/${note.id}`, {
+    fetch(`${pro_url}/notes/${note.id}`, {
       method: "DELETE",
     }).then(() => onDeleteNote(note.id));
   }
@@ -19,7 +20,7 @@ const Notes = ({
       onClick={() => setActiveNote(note.id)}
     >
       <div className="sidebar-note-title" onClick={() => setHideSidebar(true)}>
-        <strong>{note.title}</strong>
+        <strong>{note.title || "Untitled"}</strong>
         <button onClick={handleDeleteNote}>
           <FaTrash />
         </button>

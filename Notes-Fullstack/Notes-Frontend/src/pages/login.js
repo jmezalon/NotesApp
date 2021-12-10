@@ -10,13 +10,14 @@ const Login = ({
   setLoginFormData,
   throwErr,
   setThrowErr,
+  pro_url,
 }) => {
   const [newUser, setnewUser] = useState(false);
 
   const onSignupSubmit = (e) => {
     e.preventDefault();
     setThrowErr(false);
-    fetch("http://localhost:9292/users/signup", {
+    fetch(pro_url + "/users/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,14 +77,15 @@ const Login = ({
                 />
                 <input
                   name="password"
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   value={loginFormData.password}
                   onChange={handleLoginChange}
                 />
                 <input
                   name="email"
-                  type="text"
+                  type="email"
+                  required
                   placeholder="Email"
                   value={loginFormData.email}
                   onChange={handleLoginChange}
@@ -115,7 +117,7 @@ const Login = ({
                   onChange={handleLoginChange}
                 />
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   name="password"
                   value={loginFormData.password}

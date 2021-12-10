@@ -15,13 +15,16 @@ function App() {
     password: "",
   });
 
+  const pro_url = "https://stark-brook-11354.herokuapp.com";
+  // const dev_url = 'http://localhost:9292'
+
   function getNotebooks(id) {
-    fetch(`http://localhost:9292/${id}/notebooks`)
+    fetch(`${pro_url}/${id}/notebooks`)
       .then((r) => r.json())
       .catch((e) => console.log(e))
       .then((notebooks) => {
         if (notebooks.length === 0) {
-          fetch(`http://localhost:9292/${id}/notebooks`, {
+          fetch(`${pro_url}/${id}/notebooks`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -46,7 +49,7 @@ function App() {
 
   function onLoginSubmit(e) {
     e.preventDefault();
-    fetch("http://localhost:9292/users/login", {
+    fetch(pro_url + "/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +70,7 @@ function App() {
             setUser(user);
             setLoginFormData({ name: "", email: "", password: "" });
           } else {
-            setThrowErr(true)
+            setThrowErr(true);
           }
         } else {
           setThrowErr(true);
@@ -105,6 +108,7 @@ function App() {
                   setLoginFormData={setLoginFormData}
                   throwErr={throwErr}
                   setThrowErr={setThrowErr}
+                  pro_url={pro_url}
                 />
               )
             }
@@ -117,6 +121,7 @@ function App() {
                   notebooks={notebooks}
                   setNotebooks={setNotebooks}
                   user={user}
+                  pro_url={pro_url}
                   onDeleteNotebook={onDeleteNotebook}
                 />
               ) : (
