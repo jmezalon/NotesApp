@@ -81,9 +81,6 @@ const Login = ({
                   value={loginFormData.password}
                   onChange={handleLoginChange}
                 />
-                <p className={`login_err ${throwErr ? "active" : "inactive"}`}>
-                  E-mail already exist
-                </p>
                 <input
                   name="email"
                   type="text"
@@ -91,10 +88,20 @@ const Login = ({
                   value={loginFormData.email}
                   onChange={handleLoginChange}
                 />
+                <p className={`login_err ${throwErr ? "active" : "inactive"}`}>
+                  User already exist, please sign in!
+                </p>
                 <button className="submit">Sign Up</button>
               </form>
               <p>Already have an account?</p>
-              <button onClick={() => setnewUser(false)}>Sign In</button>
+              <button
+                onClick={() => {
+                  setnewUser(false);
+                  setThrowErr(false);
+                }}
+              >
+                Sign In
+              </button>
             </>
           ) : (
             <>
