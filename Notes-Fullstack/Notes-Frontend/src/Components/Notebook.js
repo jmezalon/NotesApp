@@ -9,6 +9,7 @@ const Notebook = ({
   onUpdateTitle,
   onDeleteNotebook,
   forRender,
+  setHideSidebar,
 }) => {
   const [notes, setNotes] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -142,10 +143,7 @@ const Notebook = ({
               onNotebookTitleChange();
             }
           }}
-          value={
-            // notebook.title !== "New notebook" ? text || notebook.title : text
-            text
-          }
+          value={text}
         />
       )}
       {/* <hr /> */}
@@ -159,6 +157,7 @@ const Notebook = ({
               activeNote={activeNote}
               setActiveNote={setActiveNote}
               onDeleteNote={onDeleteNote}
+              setHideSidebar={setHideSidebar}
             />
           ))}
         <button

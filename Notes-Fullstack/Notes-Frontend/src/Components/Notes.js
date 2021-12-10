@@ -1,6 +1,12 @@
 import { FaTrash } from "react-icons/fa";
 
-const Notes = ({ note, onDeleteNote, activeNote, setActiveNote }) => {
+const Notes = ({
+  note,
+  onDeleteNote,
+  activeNote,
+  setHideSidebar,
+  setActiveNote,
+}) => {
   function handleDeleteNote() {
     fetch(`http://localhost:9292/notes/${note.id}`, {
       method: "DELETE",
@@ -12,7 +18,7 @@ const Notes = ({ note, onDeleteNote, activeNote, setActiveNote }) => {
       className={`app-sidebar-note ${note.id === activeNote && "active"}`}
       onClick={() => setActiveNote(note.id)}
     >
-      <div className="sidebar-note-title">
+      <div className="sidebar-note-title" onClick={() => setHideSidebar(true)}>
         <strong>{note.title}</strong>
         <button onClick={handleDeleteNote}>
           <FaTrash />
